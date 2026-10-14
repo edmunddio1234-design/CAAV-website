@@ -36,9 +36,14 @@ var circles=[].slice.call(svg.querySelectorAll(".oc")).map(function(g,i){
 if(reduced){
   svg.classList.add("still");
   var c0=circles[0];
-  c0.g.style.opacity="1";c0.g.setAttribute("transform","translate(80 30)");c0.c.setAttribute("r","330");
-  c0.ticks.forEach(function(tk){var a=tk.a*Math.PI/180;tk.el.setAttribute("transform","translate("+(Math.cos(a)*330).toFixed(1)+" "+(Math.sin(a)*330).toFixed(1)+") rotate(45)")});
+  c0.g.style.opacity="1";c0.g.setAttribute("transform","translate(80 30)");c0.c.setAttribute("r","264");
+  c0.ticks.forEach(function(tk){var a=tk.a*Math.PI/180;tk.el.setAttribute("transform","translate("+(Math.cos(a)*264).toFixed(1)+" "+(Math.sin(a)*264).toFixed(1)+") rotate(45)")});
   circles.slice(1).forEach(function(c){c.g.style.opacity="0"});
+  /* blocks marked data-orbit="none" (e.g. the video carousel) hide the static circle while in view */
+  var off=[].slice.call(document.querySelectorAll('[data-orbit="none"]'));
+  if(off.length&&"IntersectionObserver" in window){var vis=new Set();
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?vis.add(e.target):vis.delete(e.target)});svg.style.opacity=vis.size?"0":""},{rootMargin:"-30% 0px -30% 0px"});
+    off.forEach(function(el){io.observe(el)});}
   return;
 }
 
@@ -52,7 +57,8 @@ var LAYOUT={
   right:[{x:300,y:-120,r:270,o:1},{x:300,y:170,r:290,o:1},{x:300,y:20,r:280,o:0}],
   none:[{x:0,y:10,r:300,o:0},{x:0,y:10,r:300,o:0},{x:0,y:10,r:300,o:0}]
 };
-var CYCLE=["two","none","small","three","left","one","none","right"];
+var CYCLE=["one","none","small","two","none","left","none","right"];
+var SCALE=.8; /* circles ~20% smaller than the 21tsi originals */
 
 /* ---------- pick the blocks: main's children, or the sections inside a content wrapper ---------- */
 function kids(el){return [].slice.call(el.children).filter(function(k){return !/^(SCRIPT|STYLE|TEMPLATE|NOSCRIPT)$/.test(k.tagName)})}
@@ -104,9 +110,9 @@ gsap.ticker.add(function(){
     c.spin+=.025*c.dir*r60;
     c.g.style.opacity=c.o.toFixed(3);
     if(c.o<.01)return;
-    var mx=c.x*(c.split?(.25+.75*sp):1)+Math.sin(t/900+c.ph)*70,
+    var mx=c.x*(c.split?(.25+.75*sp):1)+Math.sin(t/900+c.ph)*45,
         my=c.y+Math.cos(t/1100+c.ph)*45,
-        mr=Math.max(40,c.r*(1+.22*Math.sin(t/700+c.ph*1.7)));
+        mr=Math.max(40,c.r*SCALE*(1+.14*Math.sin(t/700+c.ph*1.7)));
     c.g.setAttribute("transform","translate("+mx.toFixed(1)+" "+my.toFixed(1)+")");
     c.c.setAttribute("r",mr.toFixed(1));
     c.ticks.forEach(function(tk){tk.a+=tk.v*r60;var a=(tk.a+c.spin+scrollSpin*c.dir)*Math.PI/180;
