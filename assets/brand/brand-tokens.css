@@ -1,0 +1,10 @@
+/* CAAV and Immersion in Motion: shared brand tokens */
+:root{
+  --ink:#121212; --ink-2:#4A4A4A; --paper:#FFFFFF; --aged:#F1F1F1; --faded:#E1E1E1;
+  --navy:#19264A; --navy-2:#243560; --blue:#3C62A0; --gold:#CC9633;
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"Azeret Mono",ui-monospace,monospace;
+  --font-hand:"Kalam",cursive;
+  --r:20px; --r-nav:28px; --r-btn:40px;
+}
