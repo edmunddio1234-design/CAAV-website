@@ -5,51 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>About | The CAAV</title>
 <meta name="description" content="What the CAAV is and its five-point charter.">
-<link rel="preload" href="/assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/PublicSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.className+=" js";</script>
+<link rel="preload" href="/assets/fonts/Supreme-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style id="tokens">
 :root{
-  /* ink on paper (style reference) */
-  --ink:#121212; --ink-2:#4A4A4A; --paper:#FFFFFF; --aged:#F1F1F1; --faded:#E1E1E1;
-  /* brand colors sampled from the Mobile CAVE flyer: navy, blue, gold */
-  --navy:#19264A; --navy-2:#243560; --blue:#3C62A0; --gold:#CC9633;
-  /* fonts from the Mission Metrics font library */
-  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --font-body:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  --font-mono:"Azeret Mono","Space Mono",ui-monospace,monospace;
-  --font-hand:"Kalam","Architects Daughter",cursive;
-  /* shape and spacing */
-  --r:20px; --r-nav:28px; --r-btn:40px; --tap:44px; --maxw:1240px; --gap:72px; --motion-scale:1;
+  /* 14islands-style neutrals: cool gray page, white panels, near-black ink */
+  --bg:#F2F2F2; --panel:#FFFFFF; --ink:#070707; --ink-2:#5E5E5E; --muted:#8A8A8A; --line:#DCDCDC; --invert:#070707;
+  /* fonts from the Mission Metrics font library (self-hosted, ITF Free Font License) */
+  --font-display:"Supreme","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Switzer","Helvetica Neue",Arial,sans-serif;
+  /* type scale */
+  --h1:clamp(3rem,8.2vw,6.5rem); --h2:clamp(2.2rem,5vw,4.5rem); --body-size:1.0625rem;
+  /* shape, spacing, motion */
+  --r:24px; --r-btn:10px; --blob:40px; --blob-2:56px; --tap:44px;
+  --maxw:1440px; --gutter:48px; --col-gap:48px; --gap:144px;
+  --ease:cubic-bezier(.22,1,.36,1); --motion-scale:1;
 }
 </style>
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/caav.css">
 </head>
 <body>
-<script>document.documentElement.className+=" js";</script>
-<header class="bar"><div class="wrap"><a class="name" href="/">The CAAV</a><nav aria-label="Pages"><a href="/about">About</a><a href="/board">Board</a><a href="/conferences">Conferences</a><a href="/cave-list">CAVE List</a><a href="/news">News</a><a href="/membership">Join</a><a href="/contact">Contact</a><a href="/brand">Brand</a><a href="/immersion-in-motion/">Immersion in Motion</a></nav></div></header>
-<main>
-<section class="white pagehead" data-section="Page title"><div class="wrap"><p class="kicker">About</p><h1>A volunteer-driven nonprofit for <em>visualization people.</em></h1><p class="lede">The CAAV describes itself as an information resource for higher education worldwide.</p></div></section>
-<section id="what" class="white" data-section="What it is"><div class="wrap">
-<p class="lede" style="margin:0 0 22px">Its focus is immersive visualization platforms, advanced video screen formats, advanced visualization software, and the sustainability and operation of high-tech visualization facilities.</p>
-<h2>The charter</h2><ol class="plist" style="list-style:decimal inside">
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+<nav class="family-top" aria-label="Site family"><a data-family="caav" href="/" aria-current="true">The CAAV</a><a data-family="immersion" href="https://immersion-in-motion.vercel.app/">Immersion in Motion</a><a data-family="amlab" href="https://am-lab-3d-printing.vercel.app">AM Lab</a></nav>
+<div class="wrap"><a class="name" href="/">The CAAV</a><nav aria-label="Pages"><a href="/about" aria-current="page">About</a><a href="/board">Board</a><a href="/conferences">Conferences</a><a href="/cave-list">CAVE List</a><a href="/news">News</a><a href="/membership">Join</a><a href="/brand">Brand</a><a href="https://immersion-in-motion.vercel.app/">Immersion in Motion</a></nav><a class="contact" href="/contact">Contact</a><button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i aria-hidden="true"></i></button></div>
+</header>
+<nav class="menu" id="menu" aria-label="All pages"><ul><li><a href="/">Home</a></li><li><a href="/about" aria-current="page">About</a></li><li><a href="/board">Board</a></li><li><a href="/conferences">Conferences</a></li><li><a href="/cave-list">CAVE List</a></li><li><a href="/news">News</a></li><li><a href="/membership">Join</a></li><li><a href="/brand">Brand</a></li><li><a href="https://immersion-in-motion.vercel.app/">Immersion in Motion</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+<main id="main">
+<section class="pagehead" data-section="Page title"><div class="wrap"><p class="kicker">About</p><h1>A volunteer-driven nonprofit for <span class="on">visualization people.</span></h1><p class="lede">The CAAV describes itself as an information resource for higher education worldwide.</p></div></section>
+<section id="what" class="panel" data-section="What it is"><div class="wrap">
+<p class="kicker">Focus</p>
+<p class="lede" data-rise>Its focus is immersive visualization platforms, advanced video screen formats, advanced visualization software, and the sustainability and operation of high-tech visualization facilities.</p>
+</div></section>
+<section id="charter" data-section="Charter"><div class="wrap">
+<p class="kicker">Five points</p><h2 class="two" data-rise>The <span class="on">charter</span></h2>
+<ol class="plist" data-rise>
 <li>Serve as a unified information resource for researchers, teaching faculty and staff who work with advanced visualization technology.</li>
 <li>Act as a clearinghouse for collaboration across K-12, undergraduate, graduate, postdoctoral and other higher education research, corporate services and teaching that use advanced visualization.</li>
 <li>Champion the adoption of more advanced visualization hardware and software.</li>
 <li>Operate as a volunteer-based organization that encourages academic-style open discussion among campus representatives.</li>
 <li>Support professional development, mentoring and public outreach, including student demonstrations and competitions.</li></ol>
 <div class="note"><b>Founding sponsors.</b> The board page lists Mechdyne as the founding sponsor and CAVEA at Metropolitan State University of Denver as the founding conference sponsor in 2016.</div>
-<p><a class="btn line" href="/board">Meet the board</a> <a class="btn line" href="https://thecaav.org/about">Read it on thecaav.org</a></p>
+<div class="actions"><a class="btn line" href="/board">Meet the board</a><a class="btn line" href="https://thecaav.org/about">Read it on thecaav.org</a></div>
 </div></section>
 </main>
-<footer><div class="wrap">
-<p style="margin:0 0 10px">The CAAV is the Campus Alliance for Advanced Visualization, a volunteer-driven nonprofit. Facts on these pages come from <a href="https://thecaav.org">thecaav.org</a>. Site built by Mission Metrics Solutions LLC, Baton Rouge, Louisiana.</p>
-<ul class="sitemap" aria-label="All pages"><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/board">Board</a></li><li><a href="/conferences">Conferences</a></li><li><a href="/cave-list">CAVE List</a></li><li><a href="/news">News</a></li><li><a href="/membership">Join</a></li><li><a href="/contact">Contact</a></li><li><a href="/brand">Brand</a></li><li><a href="/immersion-in-motion/">Immersion in Motion</a></li></ul>
+<footer data-section="Footer"><div class="wrap">
+<p class="big"><a href="/membership">Where visualization people <span class="on">compare notes.</span></a></p>
+<div class="cols">
+<p class="small">The CAAV</p>
+<div>
+<p class="small">The CAAV is the Campus Alliance for Advanced Visualization, a volunteer-driven nonprofit. Facts on these pages come from <a href="https://thecaav.org">thecaav.org</a>. Site built by Mission Metrics Solutions LLC, Baton Rouge, Louisiana.</p>
+<ul class="sitemap" aria-label="All pages"><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/board">Board</a></li><li><a href="/conferences">Conferences</a></li><li><a href="/cave-list">CAVE List</a></li><li><a href="/news">News</a></li><li><a href="/membership">Join</a></li><li><a href="/contact">Contact</a></li><li><a href="/brand">Brand</a></li><li><a href="https://immersion-in-motion.vercel.app/">Immersion in Motion</a></li></ul>
+</div>
+</div>
+<!-- SITE FAMILY strip. The addresses are set from the FAMILY constant at the top of /assets/site.js:
+     change a link there and every page follows. The hrefs below are the same values, used only if JavaScript is off. -->
+<nav class="family" aria-label="Site family"><span class="family-label">The family</span><a data-family="caav" href="/" aria-current="true">The CAAV</a><a data-family="immersion" href="https://immersion-in-motion.vercel.app/">Immersion in Motion</a><a data-family="amlab" href="https://am-lab-3d-printing.vercel.app">AM Lab</a></nav>
 </div></footer>
-<nav class="tabbar" aria-label="Main"><a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</a><a href="/about" aria-current="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16 14.3c3 .1 5 2 5 5"/></svg>About</a><a href="/conferences"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Events</a><a href="/immersion-in-motion/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="7" width="12" height="9" rx="1.5"/><path d="M14.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>Truck</a></nav>
+<nav class="tabbar" aria-label="Main"><a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</a><a href="/about" aria-current="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16 14.3c3 .1 5 2 5 5"/></svg>About</a><a href="/conferences"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Events</a><a href="https://immersion-in-motion.vercel.app/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="7" width="12" height="9" rx="1.5"/><path d="M14.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>Truck</a></nav>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="/assets/site.js"></script>
+<script src="/assets/orbit.js" defer></script>
 <script src="/tweak.js" data-site="CAAV" defer></script>
 </body>
 </html>

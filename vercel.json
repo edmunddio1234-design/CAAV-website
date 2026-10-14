@@ -2,6 +2,26 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
-    { "source": "/assets/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    {
+      "source": "/assets/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/immersion-in-motion",
+      "destination": "https://immersion-in-motion.vercel.app/",
+      "permanent": false
+    },
+    {
+      "source": "/immersion-in-motion/:path*",
+      "destination": "https://immersion-in-motion.vercel.app/:path*",
+      "permanent": false
+    }
   ]
 }

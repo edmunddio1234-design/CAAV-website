@@ -1,10 +1,16 @@
-/* CAAV and Immersion in Motion: shared brand tokens */
+/* The CAAV: brand tokens (14islands-style system, October 2026).
+   Logo colors stay as drawn in the SVG files; these are the website and print tokens. */
+@font-face{font-family:"Supreme";src:url("../fonts/Supreme-Variable.woff2") format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Switzer";src:url("../fonts/Switzer-Variable.woff2") format("woff2");font-weight:100 900;font-display:swap}
 :root{
-  --ink:#121212; --ink-2:#4A4A4A; --paper:#FFFFFF; --aged:#F1F1F1; --faded:#E1E1E1;
-  --navy:#19264A; --navy-2:#243560; --blue:#3C62A0; --gold:#CC9633;
-  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --font-body:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  --font-mono:"Azeret Mono",ui-monospace,monospace;
-  --font-hand:"Kalam",cursive;
-  --r:20px; --r-nav:28px; --r-btn:40px;
+  --bg:#F2F2F2;      /* page: cool light gray */
+  --panel:#FFFFFF;   /* panels and cards */
+  --ink:#070707;     /* text */
+  --ink-2:#5E5E5E;   /* secondary text, captions */
+  --muted:#8A8A8A;   /* first line of two-tone headlines (large text only) */
+  --line:#DCDCDC;    /* hairlines */
+  --invert:#070707;  /* dark panels */
+  --font-display:"Supreme","Helvetica Neue",Arial,sans-serif;  /* 300/400 */
+  --font-body:"Switzer","Helvetica Neue",Arial,sans-serif;     /* 400/500 */
+  --r:24px; --r-btn:10px; --blob:40px; --tap:44px;
 }
