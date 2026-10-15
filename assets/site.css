@@ -333,3 +333,17 @@ section>.wrap>.actions{margin-top:8px}
 .su-lock{display:inline-flex;align-items:center;flex:none;margin-left:12px;padding-left:12px;border-left:1px solid currentColor;border-color:rgba(127,127,127,.35);line-height:0}
 .su-lock img{height:30px;width:auto;display:block}
 @media (max-width:760px){.su-lock{margin-left:8px;padding-left:8px}.su-lock img{height:24px}}
+
+/* ---------- mobile polish (phones and tablets only; desktop untouched) ----------
+   Solid header and tab bar so scrolling text never shows through them, quieter orbit lines
+   on small screens so they read as background, and long words wrap instead of clipping. */
+@media (max-width:900px){
+  header.bar{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 1px 0 var(--line)}
+  h1,h2,h3,h4,p,li,.lede,.kicker,footer .big{overflow-wrap:break-word}
+}
+@media (max-width:640px){
+  .tabbar{background:var(--panel);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .orbit circle{stroke:rgba(7,7,7,.12)}
+  .orbit .ticks path{stroke-opacity:.55!important}
+  .orbit .nums text{fill-opacity:.3}
+}
