@@ -328,3 +328,8 @@ section>.wrap>.actions{margin-top:8px}
 @keyframes sbgkb2{from{transform:scale(1.08) translate3d(0,2%,0)}to{transform:scale(1.16) translate3d(-1%,-2%,0)}}
 @media (prefers-reduced-motion:reduce){.sbg .kb{animation:none}.sbg i,.sbg video{transition:none}}
 @media print{.sbg{display:none}}
+
+/* Southern University logo beside the site name, on every page */
+.su-lock{display:inline-flex;align-items:center;flex:none;margin-left:12px;padding-left:12px;border-left:1px solid currentColor;border-color:rgba(127,127,127,.35);line-height:0}
+.su-lock img{height:30px;width:auto;display:block}
+@media (max-width:760px){.su-lock{margin-left:8px;padding-left:8px}.su-lock img{height:24px}}
