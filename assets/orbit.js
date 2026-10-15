@@ -113,7 +113,7 @@ document.addEventListener("visibilitychange",function(){run=!document.hidden});
 /* films and moving pictures are never covered: cut holes in the circle layer where they sit */
 function holes(){
   var W=innerWidth,H=innerHeight,d="M0 0H"+W+"V"+H+"H0Z";
-  [].forEach.call(document.querySelectorAll("video,canvas,.mo-wrap,[data-orbit-hole]"),function(el){
+  [].forEach.call(document.querySelectorAll("video,canvas,.mo-wrap,.slot,[data-orbit-hole]"),function(el){
     if(el.closest(".orbit"))return;var r=el.getBoundingClientRect();
     if(r.width<40||r.height<40||r.bottom<0||r.top>H||r.right<0||r.left>W)return;
     var cs=getComputedStyle(el);if(cs.visibility==="hidden"||+cs.opacity===0)return;
