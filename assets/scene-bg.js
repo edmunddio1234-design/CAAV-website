@@ -85,4 +85,15 @@
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+
+  /* keep every scroll animation in step: when the page height changes after load (late images, fonts,
+     menus), re-measure the scroll triggers so pinned scenes start and end where they should */
+  if (window.ResizeObserver && window.ScrollTrigger) {
+    var lastH = 0, rt = null;
+    new ResizeObserver(function () {
+      var h = document.documentElement.scrollHeight;
+      if (Math.abs(h - lastH) < 40) return; lastH = h;
+      clearTimeout(rt); rt = setTimeout(function () { try { ScrollTrigger.refresh(); } catch (e) {} }, 250);
+    }).observe(document.body);
+  }
 })();
