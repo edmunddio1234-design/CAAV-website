@@ -39,6 +39,7 @@ if(reduced){
   c0.g.style.opacity="1";c0.g.setAttribute("transform","translate(80 30)");c0.c.setAttribute("r","264");
   c0.ticks.forEach(function(tk){var a=tk.a*Math.PI/180;tk.el.setAttribute("transform","translate("+(Math.cos(a)*264).toFixed(1)+" "+(Math.sin(a)*264).toFixed(1)+") rotate(45)")});
   circles.slice(1).forEach(function(c){c.g.style.opacity="0"});
+  addEventListener("scroll",holes,{passive:true});addEventListener("resize",holes);holes();
   /* blocks marked data-orbit="none" (e.g. the video carousel) hide the static circle while in view */
   var off=[].slice.call(document.querySelectorAll('[data-orbit="none"]'));
   if(off.length&&"IntersectionObserver" in window){var vis=new Set();
@@ -109,8 +110,21 @@ var scrollSpin=0;
 addEventListener("scroll",function(){scrollSpin=scrollY*.012},{passive:true});
 var run=!document.hidden,secP=.5;
 document.addEventListener("visibilitychange",function(){run=!document.hidden});
+/* films and moving pictures are never covered: cut holes in the circle layer where they sit */
+function holes(){
+  var W=innerWidth,H=innerHeight,d="M0 0H"+W+"V"+H+"H0Z";
+  [].forEach.call(document.querySelectorAll("video,canvas,.mo-wrap,[data-orbit-hole]"),function(el){
+    if(el.closest(".orbit"))return;var r=el.getBoundingClientRect();
+    if(r.width<40||r.height<40||r.bottom<0||r.top>H||r.right<0||r.left>W)return;
+    var cs=getComputedStyle(el);if(cs.visibility==="hidden"||+cs.opacity===0)return;
+    var x=Math.max(0,r.left)-2,y=Math.max(0,r.top)-2,x2=Math.min(W,r.right)+2,y2=Math.min(H,r.bottom)+2;
+    d+="M"+x.toFixed(0)+" "+y.toFixed(0)+"H"+x2.toFixed(0)+"V"+y2.toFixed(0)+"H"+x.toFixed(0)+"Z";
+  });
+  svg.style.clipPath="path(evenodd,'"+d+"')";
+}
+var hf=0;
 gsap.ticker.add(function(){
-  if(!run)return;var r60=gsap.ticker.deltaRatio(60);
+  if(!run)return;if((hf++&1)===0)holes();var r60=gsap.ticker.deltaRatio(60);
   var t=scrollY,sp=Math.sin(secP*Math.PI); /* 0 at block edges, 1 mid-block: circles merge at the edges and split in the middle */
   circles.forEach(function(c){
     c.spin+=.025*c.dir*r60;
