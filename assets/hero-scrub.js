@@ -27,8 +27,12 @@
   order.forEach(function (i) { var im = new Image(); im.decoding = "async"; im.onload = function () { if (i === 0 || Math.abs(i - want) < 3) draw(want); }; im.src = src(i); frames[i] = im; });
   addEventListener("resize", size); size();
   ScrollTrigger.create({
-    trigger: fig, start: "center 55%", end: "+=170%", pin: true, pinSpacing: true, anticipatePin: 1, refreshPriority: 1,
-    onUpdate: function (s) { want = Math.min(N - 1, Math.round(s.progress * (N - 1))); draw(want); }
+    trigger: fig, start: "center 55%", end: "+=280%", pin: true, pinSpacing: true, anticipatePin: 1, refreshPriority: 1,
+    onUpdate: function (s) { tgt = s.progress; }
   });
+  /* slower, smoother scroll: ease toward the scroll position so a fast wheel never makes the film jump */
+  var tgt = 0, sh = 0;
+  (window.gsap ? gsap.ticker : null) && gsap.ticker.add(function () { var d = tgt - sh; if (Math.abs(d) < 0.0005) return; sh += d * Math.min(1, 0.18 * gsap.ticker.deltaRatio(60));
+    var i = Math.min(N - 1, Math.round(sh * (N - 1))); if (i !== want) { want = i; draw(want); } });
   addEventListener("load", function () { ScrollTrigger.refresh(); });
 })();
