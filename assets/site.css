@@ -312,3 +312,10 @@ section>.wrap>.actions{margin-top:8px}
 .mo-b{inset:0;clip-path:inset(0 0 0 100%)}
 .mo-a{will-change:filter}
 .mo-line{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.85);box-shadow:0 0 0 .5px var(--truck);opacity:0}
+
+/* ---------- family: scene backgrounds (see-through film images, truck-blue tint) ---------- */
+.sbg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;isolation:isolate;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+.sbg i{position:absolute;left:0;right:0;top:-10%;bottom:-10%;background:center/cover no-repeat;filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(2.6) contrast(1.05);will-change:transform} /* truck-blue tint on the image only */
+.sbg-dark i{opacity:.26}
+.sbg-light i{opacity:.14}
+@media print{.sbg{display:none}}
