@@ -265,14 +265,14 @@ section>.wrap>.actions{margin-top:8px}
 /* ===== Family color (Oct 14): the AM Lab red-orange lives ONLY in the top section of every
    site in the family (CAAV, Immersion in Motion, AM Lab, Foundations). It is the one constant
    that connects them. Do not use it elsewhere on the page. ===== */
-:root{--family-heat:#c9392b;--family-heat-2:#e0573f;--family-heat-deep:#5e130c}
+:root{--family-heat:#D9622A;--family-heat-2:#EE7B30;--family-heat-deep:#5F2810}
 .hero{position:relative;isolation:isolate;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:-8%;width:auto;height:auto;right:-8%;top:-8%;z-index:-1;border-radius:0;opacity:1;animation:none;transform:scale(1.04);
   background-color:var(--family-heat-deep);
   background-image:radial-gradient(ellipse 55% 50% at 62% 42%,var(--family-heat-2) 0,transparent 70%),
     radial-gradient(ellipse 60% 60% at 30% 70%,var(--family-heat) 0,transparent 72%),
     radial-gradient(ellipse 70% 55% at 85% 85%,#8f2316 0,transparent 70%),
-    linear-gradient(160deg,#a52a1c 0%,var(--family-heat) 40%,#7d1d12 100%);
+    linear-gradient(160deg,#B44C1E 0%,var(--family-heat) 40%,#86371A 100%);
   filter:blur(28px);pointer-events:none}
 /* CAAV hero on the family orange: dark ink, muted line in dark translucent ink */
 .hero{color:#070707}
