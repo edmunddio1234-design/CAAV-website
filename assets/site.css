@@ -313,9 +313,18 @@ section>.wrap>.actions{margin-top:8px}
 .mo-a{will-change:filter}
 .mo-line{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.85);box-shadow:0 0 0 .5px var(--truck);opacity:0}
 
-/* ---------- family: scene backgrounds (see-through film images, truck-blue tint) ---------- */
-.sbg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;isolation:isolate;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
-.sbg i{position:absolute;left:0;right:0;top:-10%;bottom:-10%;background:center/cover no-repeat;filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(2.6) contrast(1.05);will-change:transform} /* truck-blue tint on the image only */
-.sbg-dark i{opacity:.26}
-.sbg-light i{opacity:.14}
+/* ---------- family: scene backgrounds (moving, see-through film images, truck-blue tint) ---------- */
+.sbg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+.sbg-in{position:absolute;left:0;right:0;top:-10%;bottom:-10%;will-change:transform}
+.sbg-dark .sbg-in{opacity:.24}
+.sbg-light .sbg-in{opacity:.15}
+.sbg i,.sbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:center/cover no-repeat;display:block;opacity:0;transition:opacity 1.4s ease;filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(2.6) contrast(1.05)}
+.sbg .on{opacity:1}
+.sbg .kb{animation:sbgkb0 26s ease-in-out infinite alternate}
+.sbg .kb1{animation-name:sbgkb1}
+.sbg .kb2{animation-name:sbgkb2}
+@keyframes sbgkb0{from{transform:scale(1.06) translate3d(-2%,1%,0)}to{transform:scale(1.2) translate3d(2%,-2%,0)}}
+@keyframes sbgkb1{from{transform:scale(1.18) translate3d(2%,-1%,0)}to{transform:scale(1.05) translate3d(-2%,2%,0)}}
+@keyframes sbgkb2{from{transform:scale(1.08) translate3d(0,2%,0)}to{transform:scale(1.16) translate3d(-1%,-2%,0)}}
+@media (prefers-reduced-motion:reduce){.sbg .kb{animation:none}.sbg i,.sbg video{transition:none}}
 @media print{.sbg{display:none}}

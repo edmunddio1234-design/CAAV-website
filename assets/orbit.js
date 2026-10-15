@@ -114,7 +114,7 @@ document.addEventListener("visibilitychange",function(){run=!document.hidden});
 function holes(){
   var W=innerWidth,H=innerHeight,d="M0 0H"+W+"V"+H+"H0Z";
   [].forEach.call(document.querySelectorAll("video,canvas,.mo-wrap,.slot,[data-orbit-hole]"),function(el){
-    if(el.closest(".orbit"))return;var r=el.getBoundingClientRect();
+    if(el.closest(".orbit")||el.closest(".sbg"))return; /* moving backgrounds are not films to keep clear */var r=el.getBoundingClientRect();
     if(r.width<40||r.height<40||r.bottom<0||r.top>H||r.right<0||r.left>W)return;
     var cs=getComputedStyle(el);if(cs.visibility==="hidden"||+cs.opacity===0)return;
     var x=Math.max(0,r.left)-2,y=Math.max(0,r.top)-2,x2=Math.min(W,r.right)+2,y2=Math.min(H,r.bottom)+2;
