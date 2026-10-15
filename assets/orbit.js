@@ -96,7 +96,13 @@ var modes=blocks.map(function(el,i){
 function reroll(){circles.forEach(function(c){c.nums.forEach(function(n){var to=Math.floor(120+Math.random()*2800);var o={v:n.shown};gsap.to(o,{v:to,duration:1.1,ease:"power2.out",onUpdate:function(){n.shown=Math.round(o.v);n.el.textContent=String(n.shown)}})})})}
 var cur=null;
 function orbitTo(md){var key=md.m+"|"+md.dim;if(key===cur)return;cur=key;var L=LAYOUT[md.m]||LAYOUT.one;
-  circles.forEach(function(c,i){var t=L[i];gsap.to(c,{x:t.x,y:t.y,r:t.r,o:t.o*md.dim,split:t.split||0,duration:1.4,ease:"power3.inOut",overwrite:true})});
+  /* collapse then expand: each visible circle shrinks to a point where it is, jumps to its new spot,
+     then expands to its new size; circles that are not needed collapse and fade out */
+  circles.forEach(function(c,i){var t=L[i],to=t.o*md.dim,tl=gsap.timeline({overwrite:true});gsap.killTweensOf(c);
+    if(c.o>.02)tl.to(c,{r:4,duration:.45,ease:"power2.in"});
+    if(to>.01){tl.set(c,{x:t.x,y:t.y,split:t.split||0,o:to}).fromTo(c,{r:4},{r:t.r,duration:1.1,ease:"expo.out",delay:i*.08});}
+    else tl.to(c,{o:0,duration:.25});
+  });
   if(md.m!=="none")reroll();
 }
 var scrollSpin=0;
@@ -112,11 +118,12 @@ gsap.ticker.add(function(){
     if(c.o<.01)return;
     var mx=c.x*(c.split?(.25+.75*sp):1)+Math.sin(t/900+c.ph)*45,
         my=c.y+Math.cos(t/1100+c.ph)*45,
-        mr=Math.max(40,c.r*SCALE*(1+.14*Math.sin(t/700+c.ph*1.7)));
+        mr=Math.max(2,c.r*SCALE*(1+.14*Math.sin(t/700+c.ph*1.7)));
     c.g.setAttribute("transform","translate("+mx.toFixed(1)+" "+my.toFixed(1)+")");
     c.c.setAttribute("r",mr.toFixed(1));
     c.ticks.forEach(function(tk){tk.a+=tk.v*r60;var a=(tk.a+c.spin+scrollSpin*c.dir)*Math.PI/180;
       tk.el.setAttribute("transform","translate("+(Math.cos(a)*mr).toFixed(1)+" "+(Math.sin(a)*mr).toFixed(1)+") rotate(45)")});
+    var fade=Math.min(1,Math.max(0,(mr-30)/90));c.nums[0].el.parentNode.style.opacity=fade.toFixed(2);c.ticks[0].el.parentNode.style.opacity=fade.toFixed(2);
     c.nums.forEach(function(n,k){var deg=c.ticks[k].a+c.spin+scrollSpin*c.dir-9,a=deg*Math.PI/180,rr=mr+30;
       n.el.setAttribute("transform","translate("+(Math.cos(a)*rr).toFixed(1)+" "+(Math.sin(a)*rr).toFixed(1)+") rotate("+(deg+90).toFixed(1)+")")});
   });

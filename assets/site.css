@@ -293,3 +293,13 @@ section>.wrap>.actions{margin-top:8px}
 .orbit.still .nums{display:none}
 @media (max-width:760px){.orbit .nums text{font-size:22px}}
 @media print{.orbit{display:none}}
+.media[data-truck] .label{color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.65)}
+
+/* ---------- family: truck blue accent + shared top menu (same on all four sites) ---------- */
+:root{--truck:#2766B0}
+.fn-prog{position:absolute;left:clamp(16px,4vw,48px);right:clamp(16px,4vw,48px);top:6px;height:1px;background:rgba(7,7,7,.14);pointer-events:none;z-index:2}
+.fn-prog i{position:absolute;left:0;right:0;top:-.5px;height:2px;background:var(--truck);transform-origin:left;transform:scaleX(0)}
+.fnav-on [data-fnav] a{text-transform:uppercase;letter-spacing:.07em;font-size:13px;color:rgba(7,7,7,.5);position:relative;transition:color .25s ease;background:none}
+.fnav-on [data-fnav] a:hover,.fnav-on [data-fnav] a.fn-on{color:#070707}
+.fnav-on [data-fnav] a.fn-on:before{content:"";position:absolute;left:-11px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--truck)}
+.orbit .ticks path{stroke:var(--truck)!important;stroke-opacity:.95!important}
