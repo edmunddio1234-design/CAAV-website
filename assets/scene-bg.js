@@ -15,7 +15,7 @@
   var imgs = list("data-images"), vids = list("data-videos"), seq = [];
   var sq = (me.getAttribute("data-seq") || "").split("|");
   if (sq.length === 4) { for (var n = +sq[1]; n <= +sq[2]; n += +sq[3]) seq.push(sq[0] + String(n).padStart(3, "0") + ".jpg"); }
-  if (!imgs.length) return;
+  if (!imgs.length && !me.hasAttribute("data-strict")) return;
   var sel = me.getAttribute("data-select") || "main section";
   var skip = me.getAttribute("data-skip") || "";
   var tone = me.getAttribute("data-tone") || "dark";
@@ -31,10 +31,11 @@
   function layer(src) { var i = document.createElement("i"); i.style.backgroundImage = "url('" + src + "')"; return i; }
 
   /* each moving background gets start/stop so it only runs while on screen */
-  function stills(inner, i) {
-    var pick = [imgs[i % imgs.length], imgs[(i + 1) % imgs.length], imgs[(i + 2) % imgs.length]];
+  var strict = me.hasAttribute("data-strict");
+  function stills(inner, i, own) {
+    var pick = own && own.length ? own.slice(0, 3) : [imgs[i % imgs.length], imgs[(i + 1) % imgs.length], imgs[(i + 2) % imgs.length]];
     var L = pick.map(function (s, k) { var l = layer(s); l.className = "kb kb" + ((i + k) % 3); inner.appendChild(l); return l; });
-    var k = 0, t = null; L[0].classList.add("on");
+    var k = 0, t = null; L[0].classList.add("on"); if (L.length < 2) return { start: function () {}, stop: function () {} };
     return { start: function () { if (t || reduced) return; t = setInterval(function () { L[k].classList.remove("on"); k = (k + 1) % L.length; L[k].classList.add("on"); }, 6500); },
              stop: function () { clearInterval(t); t = null; } };
   }
@@ -61,6 +62,7 @@
       if (skip && el.matches(skip)) return false;
       if (el.closest("[data-no-scene]") || el.hasAttribute("data-no-scene")) return false;
       if (el.offsetHeight < 240) return false;
+      if (strict && !el.hasAttribute("data-scene") && !el.hasAttribute("data-scene-film") && !el.hasAttribute("data-scene-seq")) return false;
       return !hasOwnMedia(el);
     });
     var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
@@ -72,9 +74,13 @@
       var bg = document.createElement("div"); bg.className = "sbg sbg-" + tone; bg.setAttribute("aria-hidden", "true");
       var inner = document.createElement("div"); inner.className = "sbg-in"; bg.appendChild(inner);
       el.insertBefore(bg, el.firstChild);
-      var kind = reduced ? "still" : (vids.length && i % 3 === 0) ? "film" : (seq.length && i % 3 === 1) ? "seq" : "still";
-      var ctl = kind === "film" ? film(inner, vids[Math.floor(i / 3) % vids.length], imgs[i % imgs.length])
-              : kind === "seq" ? sequence(inner) : stills(inner, i);
+      /* a section can name its own background: data-scene="a.jpg,b.jpg" (stills), data-scene-film="x.mp4", data-scene-seq */
+      var own = (el.getAttribute("data-scene") || "").split(",").map(function (x) { return x.trim(); }).filter(Boolean);
+      var ownFilm = el.getAttribute("data-scene-film");
+      var kind = reduced ? "still" : ownFilm ? "film" : el.hasAttribute("data-scene-seq") ? "seq" : own.length ? "still"
+               : (vids.length && i % 3 === 0) ? "film" : (seq.length && i % 3 === 1) ? "seq" : "still";
+      var ctl = kind === "film" ? film(inner, ownFilm || vids[Math.floor(i / 3) % vids.length], own[0] || imgs[i % imgs.length])
+              : kind === "seq" ? sequence(inner) : stills(inner, i, own);
       el.__sbg = ctl;
       if (io) io.observe(el); else ctl.start();
       if (!reduced && window.gsap && window.ScrollTrigger) {
