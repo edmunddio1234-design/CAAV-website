@@ -1,6 +1,6 @@
 /* CAAV top section: "Educating tomorrow's workforce" plays as a 3D scroll animation in the big image slot.
-   The truck turns into a blueprint and comes apart as you scroll; the slot holds still (pinned) while it plays.
-   100 frames (the film's first 8.3 seconds, before its title card). Reduced motion, no JS or no GSAP: the slot's photo shows. */
+   The Mobile CAVE truck opens up to show the 3D room inside as you scroll; the slot holds still (pinned) while it plays.
+   100 frames from /assets/media/cave/ (AI-generated concept film, same frames as the Immersion in Motion site). Reduced motion, no JS or no GSAP: the slot's photo shows. */
 (function () {
   "use strict";
   var fig = document.querySelector("[data-scrub]");
