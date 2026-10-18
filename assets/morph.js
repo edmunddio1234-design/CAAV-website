@@ -1,5 +1,6 @@
 /* CAAV image morphs (21tsi style): as a picture scrolls through the screen it blurs, then a thin line sweeps
-   across from the right and the second picture takes over, sharp. Scroll back and it reverses.
+   across from the right and the second picture takes over, sharp. The clear picture is fully in place by the time
+   the picture reaches the middle of the screen and stays clear as you keep scrolling. Scroll back and it reverses.
    Markup: data-morph="/path/second.jpg" on an image slot that also has data-img. Needs GSAP ScrollTrigger.
    No JS, no GSAP or reduced motion: the first picture shows as a normal photo. */
 (function () {
@@ -18,14 +19,14 @@
     /* keep the morph above the photo the slot loader adds later */
     new MutationObserver(function () { if (fig.lastElementChild !== wrap) fig.appendChild(wrap); }).observe(fig, { childList: true });
     function set(p) {
-      var blur = Math.min(1, Math.max(0, (p - 0.15) / 0.25)) * 14;            /* 0.15-0.40: first picture blurs */
-      var x = 100 - Math.min(1, Math.max(0, (p - 0.3) / 0.45)) * 100;         /* 0.30-0.75: line sweeps right to left */
+      var blur = Math.min(1, Math.max(0, (p - 0.05) / 0.3)) * 14;             /* 0.05-0.35: first picture blurs */
+      var x = 100 - Math.min(1, Math.max(0, (p - 0.2) / 0.7)) * 100;          /* 0.20-0.90: line sweeps right to left */
       A.style.filter = "blur(" + blur.toFixed(1) + "px)";
       B.style.clipPath = "inset(0 0 0 " + x.toFixed(2) + "%)";
       L.style.left = x.toFixed(2) + "%";
       L.style.opacity = x > 0.5 && x < 99.5 ? "1" : "0";
     }
     set(0);
-    ScrollTrigger.create({ trigger: fig, start: "top 85%", end: "bottom 15%", scrub: true, onUpdate: function (s) { set(s.progress); } });
+    ScrollTrigger.create({ trigger: fig, start: "top 90%", end: "center 45%", scrub: true, onUpdate: function (s) { set(s.progress); } });
   });
 })();
