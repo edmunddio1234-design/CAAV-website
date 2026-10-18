@@ -347,3 +347,10 @@ section>.wrap>.actions{margin-top:8px}
   .orbit .ticks path{stroke-opacity:.55!important}
   .orbit .nums text{fill-opacity:.3}
 }
+
+/* Deep dive: orange, in every header, on every screen size */
+header.bar .dd-cta{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 16px;margin-left:16px;border-radius:8px;background:#D9622A;color:#fff;text-decoration:none;font:500 .8125rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+header.bar .dd-cta:hover{background:#EE7B30;color:#fff}
+@media (max-width:1180px){header.bar .dd-cta{margin-left:auto}header.bar .menu-btn{margin-left:12px}}
+@media (max-width:600px){header.bar .dd-cta{padding:0 10px;font-size:.75rem}header.bar .menu-btn{margin-left:8px}}
+@media (max-width:420px){header.bar .su-lock{display:none}}
