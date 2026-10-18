@@ -22,3 +22,6 @@
   if("MutationObserver" in window)new MutationObserver(function(){scan()}).observe(document.documentElement,{childList:true,subtree:true});
   setInterval(function(){if(!document.hidden)scan()},3000);
 })();
+
+/* smooth jumps for in-page links, done in script: CSS smooth scrolling throws off the scroll scenes' measurements on reload */
+(function(){if(window.__anchorSmooth)return;function __fixAnchor(t,pad){var done=false;function go(){if(done)return;done=true;var d=t.getBoundingClientRect().top-pad;if(Math.abs(d)>4)window.scrollTo({top:scrollY+d,behavior:"auto"})}if("onscrollend" in window)addEventListener("scrollend",go,{once:true});setTimeout(go,1400)};window.__anchorSmooth=1;document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest('a[href^="#"]');if(!a||ev.defaultPrevented)return;var id=a.getAttribute("href").slice(1),t=id&&document.getElementById(id);if(!t)return;ev.preventDefault();var pad=parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop)||0,reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;window.scrollTo({top:t.getBoundingClientRect().top+scrollY-pad,behavior:reduce?"auto":"smooth"});__fixAnchor(t,pad);if(history.replaceState)history.replaceState(null,"","#"+id)})})();

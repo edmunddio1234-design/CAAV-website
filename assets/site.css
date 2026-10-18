@@ -10,7 +10,7 @@
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:96px;background:var(--bg)}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
 body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--body-size)/1.55 var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img,svg{max-width:100%}
 a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em}
