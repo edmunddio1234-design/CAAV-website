@@ -513,3 +513,91 @@ footer .staff-link a{color:var(--ink-2)}
 .person .ph.initials{display:grid;place-items:center;background:var(--bg)}
 section.panel .person .ph.initials{background:var(--panel)}
 .person .ph.initials span{display:grid;place-items:center;width:62%;aspect-ratio:1/1;border-radius:50%;background:var(--navy);color:var(--gold);font:500 clamp(2.2rem,5vw,3.4rem)/1 var(--font-display);letter-spacing:.02em}
+
+/* =====================================================================================================
+   Oct 24 (Oct 23 meeting asks): header buttons, Sectors menu, still panels behind text, sector pages, uploads
+   ===================================================================================================== */
+/* header: direct buttons. "Book a Tour" is gold with navy text; "Become a Sponsor" is a navy outline */
+header.bar .hbtn{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 14px;border-radius:var(--r-btn);text-decoration:none;font:500 .75rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex:none}
+header.bar .hbtn-gold{background:var(--gold);color:var(--navy);border:1px solid var(--gold-deep)}
+header.bar .hbtn-gold:hover{background:var(--gold-2)}
+header.bar .hbtn-line{border:1px solid var(--navy);color:var(--navy);background:transparent}
+header.bar .hbtn-line:hover{background:var(--navy);color:#fff}
+header.bar .hbtn+.hbtn{margin-left:8px}
+header.bar .hbtn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media (min-width:1181px){header.bar nav{margin-left:auto;margin-right:18px}header.bar .hb-opt{display:none}}
+@media (min-width:1440px){header.bar .hb-opt{display:inline}}
+@media (max-width:1180px){header.bar .hbtn-line{margin-left:auto}header.bar .menu-btn{margin-left:12px}}
+@media (max-width:640px){header.bar .hbtn-line{display:none}header.bar .hbtn-gold{margin-left:auto;padding:0 12px}header.bar .hb-opt{display:none}}
+@media (max-width:360px){header.bar .hbtn-gold{padding:0 8px;font-size:.6875rem}}
+
+/* Sectors dropdown (desktop). The link goes to /sectors; the small button opens the list. Without JS the
+   list also opens on hover and keyboard focus. */
+header.bar .dd{position:relative;display:inline-flex;align-items:center}
+header.bar .dd-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:var(--tap);margin-left:2px;padding:0;border:0;background:none;color:var(--ink-2);cursor:pointer;border-radius:6px}
+header.bar .dd-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;transition:transform .2s var(--ease)}
+header.bar .dd-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+header.bar .dd-btn:focus-visible{outline:2px solid var(--navy);outline-offset:0}
+header.bar .dd-list{position:absolute;top:100%;left:-16px;z-index:70;min-width:290px;margin:0;padding:8px;list-style:none;background:var(--panel);border-radius:14px;box-shadow:0 18px 48px rgba(0,38,58,.18),0 0 0 1px rgba(0,38,58,.08);display:none}
+html:not(.js) header.bar .dd:hover .dd-list,html:not(.js) header.bar .dd:focus-within .dd-list,header.bar .dd.open .dd-list{display:block}
+header.bar .dd-list a{display:flex;min-height:var(--tap);padding:0 12px;border-radius:8px;text-transform:none;letter-spacing:0;font-size:.9375rem;color:var(--ink)}
+header.bar .dd-list a::after{display:none}
+header.bar .dd-list a:hover,header.bar .dd-list a:focus-visible,header.bar .dd-list a[aria-current]{background:#FFF6DA;color:var(--navy)}
+.fnav-on [data-fnav] .dd-list a{color:var(--ink);font-size:.9375rem;letter-spacing:0;text-transform:none}
+.fnav-on [data-fnav] .dd-list a.fn-on:before{display:none}
+/* full-screen menu: sector pages listed under Sectors */
+.menu .menu-sub{list-style:none;margin:4px 0 12px;padding:0 0 0 16px;border-left:3px solid var(--gold)}
+.menu .menu-sub a{font:400 1.15rem/1.3 var(--font-body);letter-spacing:0;padding:10px 0;min-height:var(--tap);color:var(--ink-2)}
+
+/* still panels: page-title blocks show a dark, blurred still frame with a navy overlay, never moving film,
+   so the words and buttons on top stay crisp. The still is pre-blurred and small (about 10 KB). */
+.pagehead.still{position:relative;isolation:isolate;overflow:hidden;background:var(--navy);color:#fff}
+.pagehead.still::before{content:"";position:absolute;inset:-24px;z-index:-2;background:var(--still) center/cover no-repeat;filter:blur(6px) saturate(.7)}
+.pagehead.still::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,38,58,.82),rgba(0,38,58,.9))}
+.pagehead.still h1{color:rgba(255,255,255,.7)}
+.pagehead.still h1 .on,.pagehead.still .ln .w.on{color:#fff}
+.pagehead.still .kicker{color:var(--gold)}
+.pagehead.still .lede{color:rgba(255,255,255,.92)}
+.pagehead.still a{color:#fff}
+.pagehead.still .help-q{background:transparent;border-color:var(--gold);color:var(--gold)}
+.pagehead.still .help-q[aria-expanded="true"]{background:var(--gold);color:var(--navy)}
+.pagehead.still .help-t{background:rgba(255,255,255,.1);color:#fff}
+.pagehead.still :focus-visible{outline-color:var(--gold)}
+.pagehead.still .btn.line{border-color:rgba(255,255,255,.75);color:#fff}
+.pagehead.still .btn.line:hover{background:#fff;color:var(--navy)}
+@media print{.pagehead.still{background:#fff;color:var(--ink)}.pagehead.still::before,.pagehead.still::after{display:none}.pagehead.still h1,.pagehead.still h1 .on,.pagehead.still .lede{color:var(--navy)!important}}
+
+/* sector pages */
+.benefits{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.benefits li{background:var(--panel);border-radius:var(--r);padding:24px;border-top:4px solid var(--gold)}
+section.panel .benefits li{background:var(--bg)}
+.benefits b{display:block;font:400 1.25rem/1.2 var(--font-display);letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+.benefits span{color:var(--ink-2)}
+.dive{background:var(--panel);border-radius:var(--r);margin:0 0 12px;border:1px solid var(--line)}
+section.panel .dive{background:var(--bg)}
+.dive>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:16px 24px;font:400 1.25rem/1.25 var(--font-display);letter-spacing:-.02em;color:var(--ink);border-radius:var(--r)}
+.dive>summary::-webkit-details-marker{display:none}
+.dive>summary::after{content:"";flex:none;width:28px;height:28px;border-radius:8px;background:var(--gold) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M6 2v8M2 6h8' stroke='%2300263A' stroke-width='1.6' fill='none'/></svg>") center/12px no-repeat}
+.dive[open]>summary::after{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2 6h8' stroke='%2300263A' stroke-width='1.6' fill='none'/></svg>")}
+.dive>summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.dive>summary small{display:block;font:500 .6875rem/1.4 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--gold-text);margin-bottom:4px}
+.dive .dive-in{padding:0 24px 24px;max-width:78ch}
+.dive .dive-in h4{font:500 .8125rem/1.3 var(--font-body);text-transform:uppercase;letter-spacing:.05em;color:var(--navy);margin:20px 0 8px}
+.dive .dive-in ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+.dive .dive-in li{margin:.45em 0}
+.dive .dive-in p{color:var(--ink-2)}
+.dive .dive-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.src{font-size:.8125rem;color:var(--ink-2)}
+.sector-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.sector-cards .card h3 a{text-decoration:none}
+.sector-cards .card h3 a:hover{text-decoration:underline}
+.sector-cards .card .tag{color:var(--gold-text)}
+
+/* staff uploads */
+.up-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.up-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:14px 16px;background:var(--panel);border-radius:var(--r-btn);align-items:center}
+section.panel .up-list li{background:var(--bg)}
+.up-list b{font-weight:500;overflow-wrap:anywhere}
+.up-list small{display:block;color:var(--ink-2);font-size:.8125rem;overflow-wrap:anywhere}
+.up-kind{font:500 .6875rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;padding:6px 8px;border-radius:6px;background:#FFF6DA;color:var(--navy)}
+.su-form input[type=file]{padding:10px;background:#fff}

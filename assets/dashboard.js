@@ -24,12 +24,12 @@
     var db = window.SUdb && window.SUdb();
     if (!db) { show("offline", true); return; }
 
-    function signedOut() { ["app", "leads", "activity"].forEach(function (s) { show(s, false); }); show("signin", true); }
+    function signedOut() { ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, false); }); show("signin", true); }
     function signedIn(user) {
-      show("signin", false); ["app", "leads", "activity"].forEach(function (s) { show(s, true); });
+      show("signin", false); ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, true); });
       $("who").textContent = "Signed in as " + (user.email || "staff");
       var d = $("act-happened-on"); if (d && !d.value) d.value = new Date().toISOString().slice(0, 10);
-      loadLeads(); loadActivity();
+      loadLeads(); loadActivity(); loadUploads();
     }
 
     $("signin-form").addEventListener("submit", function (e) {
@@ -101,6 +101,75 @@
         f.reset(); $("act-happened-on").value = new Date().toISOString().slice(0, 10);
         msg("act-status", "ok", "Added to the log."); loadActivity();
       });
+    });
+
+    // ---------- uploads: private bucket "xrjags-uploads" + public.uploads rows (staff only) ----------
+    var BUCKET = "xrjags-uploads", MB = 1024 * 1024;
+    var RULES = {
+      photo: { max: 10 * MB, types: /^image\/(jpeg|png|webp|heic|heif)$/, label: "a photo (JPG, PNG, WebP or HEIC) up to 10 MB" },
+      clip: { max: 200 * MB, types: /^video\/(mp4|quicktime|webm)$/, label: "a video (MP4, MOV or WebM) up to 200 MB" },
+      camp_media: { max: 200 * MB, types: /^(image\/(jpeg|png|webp|heic|heif)|video\/(mp4|quicktime|webm))$/, label: "a photo up to 10 MB or a video up to 200 MB", photoMax: 10 * MB },
+      link: { max: 10 * MB, types: /^application\/pdf$/, label: "a PDF resume up to 10 MB" },
+      other: { max: 200 * MB, types: /^(image\/(jpeg|png|webp|heic|heif)|video\/(mp4|quicktime|webm)|application\/pdf)$/, label: "a photo up to 10 MB, a video up to 200 MB or a PDF up to 10 MB", photoMax: 10 * MB }
+    };
+    function checkFile(kind, f) {
+      var r = RULES[kind]; if (!r) return "Choose what it is first.";
+      if (!r.types.test(f.type || "")) return "That file type is not allowed here. Please choose " + r.label + ".";
+      var max = r.max;
+      if (r.photoMax && /^image\//.test(f.type)) max = r.photoMax;
+      if (/^application\/pdf$/.test(f.type)) max = Math.min(max, 10 * MB);
+      if (f.size > max) return "That file is too big. Please choose " + r.label + ".";
+      return "";
+    }
+    function safeName(n) { return n.replace(/[^A-Za-z0-9._-]+/g, "-").replace(/^-+|-+$/g, "").slice(-80) || "file"; }
+    function loadUploads() {
+      db.from("uploads").select("id,created_at,kind,title,file_path,url,notes").order("created_at", { ascending: false }).limit(200).then(function (r) {
+        var ul = $("up-list"); ul.textContent = "";
+        if (r.error) { msg("up-status", "err", "Could not load uploads."); return; }
+        if (!r.data.length) { var e = document.createElement("li"); e.textContent = "Nothing uploaded yet."; ul.appendChild(e); return; }
+        r.data.forEach(function (U) {
+          var li = document.createElement("li"), d = document.createElement("div"), b = document.createElement("b"), sm = document.createElement("small");
+          b.textContent = U.title; sm.textContent = fmtDate(U.created_at) + (U.notes ? " · " + U.notes : "");
+          d.appendChild(b); d.appendChild(sm);
+          var acts = document.createElement("div"); acts.style.display = "flex"; acts.style.gap = "8px"; acts.style.alignItems = "center"; acts.style.flexWrap = "wrap";
+          var k = document.createElement("span"); k.className = "up-kind"; k.textContent = U.kind.replace("_", " "); acts.appendChild(k);
+          if (U.url && /^https?:\/\//i.test(U.url)) { var a = document.createElement("a"); a.href = U.url; a.rel = "noopener"; a.target = "_blank"; a.textContent = "Open link"; acts.appendChild(a); }
+          if (U.file_path) {
+            var fb = document.createElement("button"); fb.type = "button"; fb.className = "btn line"; fb.textContent = "Open file";
+            fb.addEventListener("click", function () {
+              db.storage.from(BUCKET).createSignedUrl(U.file_path, 300).then(function (s) {
+                if (s.error || !s.data) { msg("up-status", "err", "Could not open that file."); return; }
+                window.open(s.data.signedUrl, "_blank", "noopener");
+              });
+            });
+            acts.appendChild(fb);
+          }
+          li.appendChild(d); li.appendChild(acts); ul.appendChild(li);
+        });
+      });
+    }
+    $("up-form").addEventListener("submit", function (e) {
+      e.preventDefault(); var f = e.target; if (!f.reportValidity()) return;
+      var kind = f.elements.kind.value, title = f.elements.title.value.trim(), url = f.elements.url.value.trim(), notes = f.elements.notes.value.trim();
+      var file = f.elements.file.files && f.elements.file.files[0];
+      if (!file && !url) { msg("up-status", "warn", "Add a file, a link, or both."); return; }
+      if (url && !/^https?:\/\/[^\s]+$/i.test(url)) { msg("up-status", "err", "Links must start with http:// or https://."); return; }
+      if (file) { var bad = checkFile(kind, file); if (bad) { msg("up-status", "err", bad); return; } }
+      var btn = f.querySelector("[type=submit]"); btn.disabled = true;
+      db.auth.getUser().then(function (u) {
+        var uid = u.data && u.data.user ? u.data.user.id : "staff";
+        var path = file ? kind + "/" + uid + "/" + Date.now() + "-" + safeName(file.name) : null;
+        msg("up-status", "busy", file ? "Uploading " + file.name + "…" : "Saving…");
+        var step = file ? db.storage.from(BUCKET).upload(path, file, { contentType: file.type, upsert: false }) : Promise.resolve({ error: null });
+        return step.then(function (up) {
+          if (up.error) throw new Error("upload");
+          return db.from("uploads").insert({ kind: kind, title: title, file_path: path, url: url || null, notes: notes || null }).then(function (r) {
+            if (r.error) { if (path) db.storage.from(BUCKET).remove([path]); throw new Error("row"); }
+          });
+        });
+      }).then(function () {
+        btn.disabled = false; f.reset(); msg("up-status", "ok", "Saved."); loadUploads();
+      }, function () { btn.disabled = false; msg("up-status", "err", "Not saved. Check the file and try again."); });
     });
 
     db.auth.getSession().then(function (r) { var s = r.data && r.data.session; if (s && s.user) signedIn(s.user); else signedOut(); });

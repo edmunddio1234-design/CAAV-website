@@ -61,6 +61,96 @@
       "source": "/membership/",
       "destination": "/about",
       "permanent": true
+    },
+    {
+      "source": "/projects-home",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
+      "source": "/equipment",
+      "destination": "/about#equipment",
+      "permanent": true
+    },
+    {
+      "source": "/publications",
+      "destination": "/initiatives#publications",
+      "permanent": true
+    },
+    {
+      "source": "/service-request",
+      "destination": "/request-services",
+      "permanent": true
+    },
+    {
+      "source": "/category/all-products",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/category/:slug*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/notifications",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/my-subscriptions",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/booking-calendar/cave-tour",
+      "destination": "/book-a-tour",
+      "permanent": true
+    },
+    {
+      "source": "/booking-calendar/:slug*",
+      "destination": "/book-a-tour",
+      "permanent": true
+    },
+    {
+      "source": "/service-page/2026-xr-summer-camp-registration",
+      "destination": "/initiatives#camps",
+      "permanent": true
+    },
+    {
+      "source": "/service-page/:slug*",
+      "destination": "/request-services",
+      "permanent": true
+    },
+    {
+      "source": "/blog-feed.xml",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/projects/ntia",
+      "destination": "/projects#suradd",
+      "permanent": true
+    },
+    {
+      "source": "/projects/oph",
+      "destination": "/projects#oph",
+      "permanent": true
+    },
+    {
+      "source": "/projects/iclert",
+      "destination": "/projects#iclert",
+      "permanent": true
+    },
+    {
+      "source": "/projects/enhancing-additive-manufacturing-education-with-cybersecurity-and-virtual-reality",
+      "destination": "/projects#am-cyber-vr",
+      "permanent": true
     }
   ]
 }

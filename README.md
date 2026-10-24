@@ -14,7 +14,7 @@ primary accent with navy `#00263A` text on it (never white on gold); gold text o
 The full sheet is `/brand` (print it to make the brand PDF).
 
 ## Pages (XR Jags)
-- `/` home, `/about` (5 parts), `/projects`, `/initiatives`, `/team` (XR Jags Team), `/request-services`, `/book-a-tour`,
+- `/` home, `/about` (5 parts), `/projects`, `/sectors` (+4), `/initiatives`, `/team` (XR Jags Team), `/request-services`, `/book-a-tour`,
   `/contact`, `/news`, `/cave-list`, `/sponsor-interest`, `/media`, `/brand`, `/dashboard` (staff only, noindex, footer link "Team sign-in")
 - Redirects in `vercel.json` (permanent): `/board` -> `/team`, `/conferences` -> `/initiatives`, `/membership` -> `/about`.
   The old folders hold a fallback refresh page for servers that ignore `vercel.json`.
@@ -33,6 +33,37 @@ go-live, and the forms then tell visitors to email suradd@subr.edu. Each form ha
 - Names on `/team` and `/media` (`a.pv`) show a small photo card when the pointer rests on the name, and link to `/team/#slug`.
 - Team photos in `assets/img/team/` come from suvrjags.org/team.
 - No XR Jags logo file exists yet: the header uses a typed "XR Jags" wordmark. The old CAAV marks stay in `assets/brand/`.
+
+## Sectors (Oct 2026)
+`/sectors/` hub and four pages: `healthcare`, `k12`, `plants`, `emergency`. Each has a tagline, short benefits and
+"Deep Dive" blocks (`<details>`) that link to the full AM Lab deep-dive page and PDF. Text comes only from the AM Lab deep
+dives (SP01, SP02, SP03, SP05, L1, L2), the Immersion in Motion pages and the suvrjags.org project write-ups.
+
+## No motion behind text
+Page-title blocks use a dark, pre-blurred still (`assets/img/still/`, about 10 KB each) under a navy overlay instead of
+moving film. The moving scene backgrounds (`scene-bg.js`) are no longer loaded. The truck film still plays in its own image
+block on the home page, where no text sits on it.
+
+## Launch banner
+`assets/su-launch.js` (shared with the other two sites) adds the pop-up and, with `data-banner="on"`, a slim top strip.
+Add `data-date="..."` and `data-target="YYYY-MM-DDTHH:MM:00-06:00"` to the script tag to show the date and a day countdown.
+It is on every public page, not on `/dashboard`.
+
+## Moving suvrjags.org to this site
+`vercel.json` already sends the old Wix addresses to the matching new pages (permanent redirects). `/team` and `/contact`
+keep the same address. When SU is ready:
+1. In Vercel, open this project, then Settings, then Domains, and add `www.suvrjags.org` and `suvrjags.org`
+   (set the bare domain to redirect to `www`).
+2. In the DNS for suvrjags.org (currently pointing at Wix), set the records Vercel shows on that screen.
+3. Once the domain works, change the sitemap address in `robots.txt` and every `<loc>` in `sitemap.xml` from
+   `https://caav-website.vercel.app` to `https://www.suvrjags.org`, and the `SITE_URL` used for `og:url` in each page head.
+4. Add `<link rel="canonical" href="https://www.suvrjags.org/<path>">` to each page head only at that point, not before.
+5. In Google Search Console, add the suvrjags.org property and submit `https://www.suvrjags.org/sitemap.xml`.
+
+## Staff uploads
+`/dashboard` has an Uploads section (bio photos, simulation clips, resume/LinkedIn links, summer camp media). Files go to the
+private Supabase Storage bucket `xrjags-uploads`, rows to `public.uploads`. The SQL is block 2 of the shared
+`migration.sql`; until it is applied, uploads return an error message and nothing is saved.
 
 ---
 Earlier notes (CAAV site, kept for history):

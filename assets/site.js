@@ -92,6 +92,22 @@ var FAMILY = [
     openTarget(); addEventListener("hashchange", openTarget);
   })();
 
+  // ---------- Sectors dropdown (desktop): the button toggles the list; Esc or a click outside closes it ----------
+  document.querySelectorAll("header.bar .dd").forEach(function (dd) {
+    var b = dd.querySelector(".dd-btn"); if (!b) return;
+    function set(open) { dd.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false"); }
+    b.addEventListener("click", function (e) { e.stopPropagation(); set(!dd.classList.contains("open")); });
+    document.addEventListener("click", function (e) { if (!dd.contains(e.target)) set(false); });
+    dd.addEventListener("keydown", function (e) { if (e.key === "Escape" && dd.classList.contains("open")) { set(false); b.focus(); } });
+    dd.addEventListener("focusout", function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+    // mouse users: open on hover, close when the pointer leaves (Esc still closes it while hovering)
+    if (window.matchMedia("(hover: hover)").matches) {
+      var t = null;
+      dd.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { clearTimeout(t); set(true); } });
+      dd.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") t = setTimeout(function () { if (!dd.contains(document.activeElement)) set(false); }, 150); });
+    }
+  });
+
   // ---------- menu (tablet and phone) ----------
   var btn = document.querySelector(".menu-btn"), menu = document.getElementById("menu");
   function setMenu(open) {

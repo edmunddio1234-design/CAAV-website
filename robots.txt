@@ -1,0 +1,6 @@
+# Allow all. Swap the sitemap address to https://www.suvrjags.org/sitemap.xml when the domain moves (see README).
+User-agent: *
+Allow: /
+Disallow: /dashboard
+
+Sitemap: https://caav-website.vercel.app/sitemap.xml
