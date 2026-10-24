@@ -85,7 +85,7 @@
     '.su-l__card{position:relative;max-width:520px;width:100%;background:#00263A;color:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:inherit}' +
     '.su-l__band{height:8px;background:linear-gradient(90deg,#FFC72C 0 50%,#69B3E7 50% 100%)}' +
     '.su-l__body{padding:26px 26px 24px;display:grid;gap:14px}' +
-    '.su-l__eye{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#FFC72C;margin:0}' +
+    '.su-l__eye{padding-right:44px;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#FFC72C;margin:0}' +
     '.su-l__h{font-size:1.7rem;line-height:1.15;margin:0;font-weight:600}' +
     '.su-l__p{margin:0;color:rgba(255,255,255,.82);line-height:1.5}' +
     '.su-l__row{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}' +
