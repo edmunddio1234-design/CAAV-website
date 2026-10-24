@@ -1,9 +1,9 @@
-/* The CAAV main site: shared behavior. Plain JS, no build step.
+/* XR Jags (Extended Reality Jaguars Research Group, Southern University) main site: shared behavior. Plain JS, no build step.
    Content is visible without JS. Motion runs only when GSAP loads and the visitor has not asked for reduced motion. */
 /* ===== SITE FAMILY: the one place to change the family links (header strip and footer strip on every page). =====
    Foundations is private, so it is not listed. When Immersion in Motion moves to its own address, change it here. */
 var FAMILY = [
-  { id: "caav",      name: "The CAAV",            url: "/" },
+  { id: "caav",      name: "XR Jags",             url: "/" },   /* id kept as "caav" so existing markup keeps working */
   { id: "immersion", name: "Immersion in Motion", url: "https://immersion-in-motion.vercel.app/" },
   { id: "amlab",     name: "AM Lab",              url: "https://am-lab-3d-printing.vercel.app" }
 ];
@@ -19,6 +19,78 @@ var FAMILY = [
       if (/^https?:/.test(f.url)) { a.target = "_blank"; a.rel = "noopener"; }
     });
   });
+
+  // ---------- way back: ?from=/path adds a "Back to where you were" link (same-site paths only) ----------
+  (function () {
+    var from = null;
+    try { from = new URLSearchParams(location.search).get("from"); } catch (e) {}
+    if (!from) return;
+    // only a same-site path: starts with one "/", not "//", no scheme, no backslash, no control characters
+    if (!/^\/(?!\/)/.test(from) || /[\\\s]|^\/[^?#]*:/.test(from) || from.length > 300) return;
+    var u; try { u = new URL(from, location.origin); } catch (e) { return; }
+    if (u.origin !== location.origin) return;
+    var box = document.createElement("p"); box.className = "wayback";
+    var a = document.createElement("a"); a.href = u.pathname + u.search + u.hash; a.textContent = "Back to where you were";
+    box.appendChild(a);
+    var main = document.getElementById("main");
+    if (main) main.insertBefore(box, main.firstChild);
+  })();
+
+  // ---------- "?" help: any element with data-help="plain words" gets a ? button that shows/hides the text ----------
+  (function () {
+    var n = 0;
+    document.querySelectorAll("[data-help]").forEach(function (host) {
+      var txt = host.getAttribute("data-help"); if (!txt) return;
+      var id = "help-" + (++n), label = host.getAttribute("data-help-label") || "this section";
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "help-q"; b.textContent = "?";
+      b.setAttribute("aria-expanded", "false"); b.setAttribute("aria-controls", id);
+      b.setAttribute("aria-label", "What is " + label + "?");
+      var t = document.createElement("p"); t.className = "help-t"; t.id = id; t.hidden = true; t.textContent = txt;
+      b.addEventListener("click", function () { var open = t.hidden; t.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); });
+      var anchor = host.querySelector(":scope > .help-anchor") || host.querySelector(":scope > .wrap > .kicker") || host.querySelector(":scope > .kicker") || host.querySelector(":scope > h3, :scope > h2");
+      if (anchor) { anchor.appendChild(b); anchor.insertAdjacentElement("afterend", t); }
+      else { host.insertBefore(t, host.firstChild); host.insertBefore(b, t); }
+    });
+  })();
+
+  // ---------- name hover preview: hovering (or focusing) a NAME link with data-pv shows a small card with the
+  // photo; the rest of the row does nothing. The name links to the person's own anchor; landing there opens the card. ----------
+  (function () {
+    var names = document.querySelectorAll("a.pv[data-pv-img]");
+    if (names.length) {
+      var card = document.createElement("div"); card.className = "pv-card"; card.setAttribute("aria-hidden", "true");
+      card.innerHTML = "<img alt=''><b></b><span></span>"; document.body.appendChild(card);
+      var img = card.querySelector("img"), nm = card.querySelector("b"), rl = card.querySelector("span"), hideT = null, curA = null;
+      function show(a) {
+        clearTimeout(hideT); curA = a;
+        img.src = a.getAttribute("data-pv-img"); nm.textContent = a.textContent; rl.textContent = a.getAttribute("data-pv-role") || "";
+        var r = a.getBoundingClientRect(), w = 220, h = 300;
+        var x = Math.min(Math.max(8, r.left), innerWidth - w - 8);
+        var y = r.bottom + 10; if (y + h > innerHeight) y = Math.max(8, r.top - h - 10);
+        card.style.left = x + "px"; card.style.top = y + "px"; card.classList.add("on");
+      }
+      function hide() { hideT = setTimeout(function () { card.classList.remove("on"); curA = null; }, 60); }
+      names.forEach(function (a) {
+        a.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") show(a); });
+        a.addEventListener("pointerleave", hide);
+        a.addEventListener("focus", function () { show(a); });
+        a.addEventListener("blur", hide);
+      });
+      // on scroll: follow the name if the pointer (or focus) is still on it, otherwise hide
+      addEventListener("scroll", function () {
+        if (!curA) return;
+        if (curA.matches(":hover") || curA === document.activeElement) show(curA); else { card.classList.remove("on"); curA = null; }
+      }, { passive: true });
+    }
+    function openTarget() {
+      document.querySelectorAll(".person.is-open").forEach(function (p) { p.classList.remove("is-open"); });
+      var id = location.hash.slice(1); if (!id) return;
+      var el = document.getElementById(id); if (!el || !el.classList.contains("person")) return;
+      el.classList.add("is-open"); var d = el.querySelector("details"); if (d) d.open = true;
+    }
+    openTarget(); addEventListener("hashchange", openTarget);
+  })();
 
   // ---------- menu (tablet and phone) ----------
   var btn = document.querySelector(".menu-btn"), menu = document.getElementById("menu");

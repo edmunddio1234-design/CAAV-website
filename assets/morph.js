@@ -1,4 +1,4 @@
-/* CAAV image morphs (21tsi style): as a picture scrolls through the screen it blurs, then a thin line sweeps
+/* XR Jags image morphs (21tsi style): as a picture scrolls through the screen it blurs, then a thin line sweeps
    across from the right and the second picture takes over, sharp. The clear picture is fully in place by the time
    the picture reaches the middle of the screen and stays clear as you keep scrolling. Scroll back and it reverses.
    Markup: data-morph="/path/second.jpg" on an image slot that also has data-img. Needs GSAP ScrollTrigger.

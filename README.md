@@ -1,4 +1,41 @@
-# CAAV website and Immersion in Motion
+# XR Jags website (formerly the CAAV site) and Immersion in Motion
+
+**XR Jags / Extended Reality Jaguars Research Group** is the Southern University student research group for extended reality.
+On October 21, 2026 Southern University decided to rebrand this site in place (same repo, same URL: caav-website.vercel.app)
+from the CAAV conference site into the XR Jags site. Content comes from the student site, suvrjags.org, and from SU.
+Launch event: Mobile CAVE ribbon cutting at the Leon Waters Museum, Southern University. Date to be announced.
+
+Static site. No build step. Open `index.html` with any web server (for example `python3 -m http.server`).
+
+## Colors (October 24, 2026)
+Southern University colors replace every orange (client rule: "No orange, it must be SU yellow"). SU Gold `#FFC72C` is the
+primary accent with navy `#00263A` text on it (never white on gold); gold text on white uses `#8A6A00`. Columbia Blue
+`#69B3E7` / `#1F6FAE` (text-safe) is the secondary accent only. The top section of every page is a gold field with navy text.
+The full sheet is `/brand` (print it to make the brand PDF).
+
+## Pages (XR Jags)
+- `/` home, `/about` (5 parts), `/projects`, `/initiatives`, `/team` (XR Jags Team), `/request-services`, `/book-a-tour`,
+  `/contact`, `/news`, `/cave-list`, `/sponsor-interest`, `/media`, `/brand`, `/dashboard` (staff only, noindex, footer link "Team sign-in")
+- Redirects in `vercel.json` (permanent): `/board` -> `/team`, `/conferences` -> `/initiatives`, `/membership` -> `/about`.
+  The old folders hold a fallback refresh page for servers that ignore `vercel.json`.
+
+## Forms and leads
+Every form is `<form data-su-form="tour|service|sponsor|media|contact">` and is saved by `assets/su-leads.js` to the shared
+Southern University Supabase `leads` table. `assets/su-config.js` holds the project URL and PUBLISHABLE key; it is empty until
+go-live, and the forms then tell visitors to email suradd@subr.edu. Each form has a hidden honeypot field `website_hp`.
+`/dashboard` (`assets/dashboard.js`) signs staff in with Supabase Auth and shows the leads table and the activity log.
+`assets/su-launch.js` shows the launch pop-up once a week per visitor (not on the tour, sponsor, media and dashboard pages). Its date is one optional `data-date` setting; without it the pop-up says "Date to be announced".
+`assets/funding.js` holds funding acknowledgments; an entry shows only once SU's exact approved wording is pasted into it.
+
+## Page helpers (assets/site.js)
+- `?from=/path` on any address adds a "Back to where you were" link (same-site paths only).
+- `data-help="plain words"` on a section or card adds an accessible "?" button that shows the text.
+- Names on `/team` and `/media` (`a.pv`) show a small photo card when the pointer rests on the name, and link to `/team/#slug`.
+- Team photos in `assets/img/team/` come from suvrjags.org/team.
+- No XR Jags logo file exists yet: the header uses a typed "XR Jags" wordmark. The old CAAV marks stay in `assets/brand/`.
+
+---
+Earlier notes (CAAV site, kept for history):
 
 Static site. No build step. Open `index.html` with any web server (for example `python3 -m http.server`).
 

@@ -10,6 +10,15 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/dashboard(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -22,6 +31,36 @@
       "source": "/immersion-in-motion/:path*",
       "destination": "https://immersion-in-motion.vercel.app/:path*",
       "permanent": false
+    },
+    {
+      "source": "/board",
+      "destination": "/team",
+      "permanent": true
+    },
+    {
+      "source": "/board/",
+      "destination": "/team",
+      "permanent": true
+    },
+    {
+      "source": "/conferences",
+      "destination": "/initiatives",
+      "permanent": true
+    },
+    {
+      "source": "/conferences/",
+      "destination": "/initiatives",
+      "permanent": true
+    },
+    {
+      "source": "/membership",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/membership/",
+      "destination": "/about",
+      "permanent": true
     }
   ]
 }

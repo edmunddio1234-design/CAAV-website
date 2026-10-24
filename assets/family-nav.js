@@ -1,4 +1,4 @@
-/* Family top menu: the same behaviour on all four sites (CAAV, Immersion in Motion, AM Lab, Foundations).
+/* Family top menu: the same behaviour on all four sites (XR Jags, formerly the CAAV site; Immersion in Motion, AM Lab, Foundations).
    - A thin progress line runs along the top of the header; its filled part is the truck blue.
    - The menu titles are the contextual menu: the title for the section on screen (or the page you are on)
      turns bright with a small truck-blue dot; the others stay dim. Same rule as the 21tsi reference.

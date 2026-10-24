@@ -1,5 +1,5 @@
-/* The CAAV: brand tokens (14islands-style system, October 2026).
-   Logo colors stay as drawn in the SVG files; these are the website and print tokens. */
+/* XR Jags: brand tokens (14islands-style system, October 2026; Southern University colors added Oct 24, 2026).
+   No orange anywhere: SU Gold is the primary accent (navy text on gold), Columbia Blue the secondary. */
 @font-face{font-family:"Supreme";src:url("../fonts/Supreme-Variable.woff2") format("woff2");font-weight:100 800;font-display:swap}
 @font-face{font-family:"Switzer";src:url("../fonts/Switzer-Variable.woff2") format("woff2");font-weight:100 900;font-display:swap}
 :root{
@@ -9,7 +9,10 @@
   --ink-2:#5E5E5E;   /* secondary text, captions */
   --muted:#8A8A8A;   /* first line of two-tone headlines (large text only) */
   --line:#DCDCDC;    /* hairlines */
-  --invert:#070707;  /* dark panels */
+  --invert:#00263A;  /* dark panels: SU Navy */
+  --gold:#FFC72C; --gold-2:#FFD45C; --gold-deep:#E0A91F; --gold-text:#8A6A00;  /* SU Gold PMS 123; gold text on white */
+  --navy:#00263A;    /* SU Navy PMS 2965 */
+  --blue:#69B3E7; --blue-text:#1F6FAE;  /* Columbia Blue PMS 292; text-safe on white */
   --font-display:"Supreme","Helvetica Neue",Arial,sans-serif;  /* 300/400 */
   --font-body:"Switzer","Helvetica Neue",Arial,sans-serif;     /* 400/500 */
   --r:24px; --r-btn:10px; --blob:40px; --tap:44px;

@@ -1,4 +1,4 @@
-/* CAAV pages: brand-page pieces on top of site.css (same 14islands-style system). */
+/* XR Jags pages (file name kept from the CAAV site): brand-page pieces on top of site.css (same 14islands-style system). */
 
 /* brand: logo tiles */
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}

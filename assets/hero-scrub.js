@@ -15,7 +15,7 @@ window.AutoDrive=window.AutoDrive||function(el,render,opts){
   return {scroll:function(v){scrollP=v;p=v;render(v)}, get:function(){return p}};
 };
 
-/* CAAV top section: "Educating tomorrow's workforce" plays as a 3D scroll animation in the big image slot.
+/* XR Jags top section: "Educating tomorrow's workforce" plays as a 3D scroll animation in the big image slot.
    The Mobile CAVE truck opens up to show the 3D room inside as you scroll; the slot holds still (pinned) while it plays.
    100 frames from /assets/media/cave/ (AI-generated concept film, same frames as the Immersion in Motion site). Reduced motion, no JS or no GSAP: the slot's photo shows. */
 (function () {

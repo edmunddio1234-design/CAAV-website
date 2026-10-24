@@ -1,9 +1,9 @@
-/* The CAAV: shared styles.
+/* XR Jags (Extended Reality Jaguars Research Group, Southern University): shared styles.
    Look: 14islands.com reference. Cool gray page, pure white panels, near-black text, muted gray first lines in
    two-tone headlines, uppercase UI labels, big media blocks with soft organic edges, lots of white space.
    Fonts: Supreme (display) and Switzer (UI and body), self-hosted, ITF Free Font License (assets/fonts/FFL.txt).
    Design tokens (:root) live inline in each page head (<style id="tokens">) so /tweak can read them.
-   NOTE: these files are the CAAV main site's styles. /immersion-in-motion/ has its own assets. */
+   NOTE: these files are the XR Jags main site's styles (this repo was the CAAV site until Oct 2026). /immersion-in-motion/ has its own assets. */
 
 @font-face{font-family:"Supreme";src:url("fonts/Supreme-Variable.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
 @font-face{font-family:"Switzer";src:url("fonts/Switzer-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
@@ -262,24 +262,30 @@ section>.wrap>.actions{margin-top:8px}
   .media.blobby{clip-path:none!important}
   .motion .work:hover .media,.motion .work .cap span{transform:none}
 }
-/* ===== Family color (Oct 14): the AM Lab red-orange lives ONLY in the top section of every
-   site in the family (CAAV, Immersion in Motion, AM Lab, Foundations). It is the one constant
-   that connects them. Do not use it elsewhere on the page. ===== */
-:root{--family-heat:#D9622A;--family-heat-2:#EE7B30;--family-heat-deep:#5F2810}
+/* ===== Family color (Oct 14; recolored Oct 24 for the Southern University rebrand, client rule "No orange, it must be SU
+   yellow"): the shared top-section field was the AM Lab red-orange. It is now a Southern University GOLD field
+   (#FFD45C -> #FFC72C -> #E0A91F) with NAVY #00263A text on it (never white on gold). It lives ONLY in the top section
+   of every site in the family. Do not use it elsewhere on the page. ===== */
+:root{--family-heat:#FFC72C;--family-heat-2:#FFD45C;--family-heat-deep:#E0A91F}
 .hero{position:relative;isolation:isolate;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:-8%;width:auto;height:auto;right:-8%;top:-8%;z-index:-1;border-radius:0;opacity:1;animation:none;transform:scale(1.04);
-  background-color:var(--family-heat-deep);
+  background-color:var(--family-heat);
   background-image:radial-gradient(ellipse 55% 50% at 62% 42%,var(--family-heat-2) 0,transparent 70%),
     radial-gradient(ellipse 60% 60% at 30% 70%,var(--family-heat) 0,transparent 72%),
-    radial-gradient(ellipse 70% 55% at 85% 85%,#8f2316 0,transparent 70%),
-    linear-gradient(160deg,#B44C1E 0%,var(--family-heat) 40%,#86371A 100%);
+    radial-gradient(ellipse 70% 55% at 85% 85%,#E0A91F 0,transparent 70%),
+    linear-gradient(160deg,#FFD45C 0%,var(--family-heat) 45%,#E0A91F 100%);
   filter:blur(28px);pointer-events:none}
-/* CAAV hero on the family orange: dark ink, muted line in dark translucent ink */
-.hero{color:#070707}
-.hero h1{color:rgba(7,7,7,.55)}.hero h1 .on{color:#070707}
-.hero .kicker,.hero .lede,.hero .stats span{color:rgba(7,7,7,.78)}
-.hero .stats{border-color:rgba(7,7,7,.25)}
-.hero .btn.line{border-color:rgba(7,7,7,.5)}
+/* hero on the gold field: navy text; the muted first line is translucent navy (large text only) */
+.hero{color:#00263A}
+.hero h1{color:rgba(0,38,58,.6)}.hero h1 .on,.hero .ln .w.on{color:#00263A}
+.hero .kicker,.hero .lede,.hero .stats span{color:rgba(0,38,58,.9)}
+.hero .stats b{color:#00263A}
+.hero .stats div{border-top-color:#00263A}
+.hero .stats div+div{border-left-color:rgba(0,38,58,.25)}
+.hero .btn.line{border-color:rgba(0,38,58,.6);color:#00263A}
+.hero .btn.line:hover{background:#00263A;color:#FFC72C}
+.hero .btn.solid{background:#00263A;color:#fff;border-color:#00263A}
+.hero :focus-visible{outline-color:#00263A}
 
 /* ---------- orbit (21tsi circles, ported from AM Lab; injected by orbit.js) ----------
    Fixed full-viewport overlay, no pointer events. z-index sits above section backgrounds
@@ -296,7 +302,7 @@ section>.wrap>.actions{margin-top:8px}
 .media[data-truck] .label{color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.65)}
 
 /* ---------- family: truck blue accent + shared top menu (same on all four sites) ---------- */
-:root{--truck:#2766B0}
+:root{--truck:#1F6FAE} /* Columbia Blue, text-safe on white (was #2766B0) */
 .fn-prog{position:absolute;left:clamp(16px,4vw,48px);right:clamp(16px,4vw,48px);top:6px;height:1px;background:rgba(7,7,7,.14);pointer-events:none;z-index:2}
 .fn-prog i{position:absolute;left:0;right:0;top:-.5px;height:2px;background:var(--truck);transform-origin:left;transform:scaleX(0)}
 .fnav-on [data-fnav] a{text-transform:uppercase;letter-spacing:.07em;font-size:13px;color:rgba(7,7,7,.5);position:relative;transition:color .25s ease;background:none}
@@ -348,9 +354,162 @@ section>.wrap>.actions{margin-top:8px}
   .orbit .nums text{fill-opacity:.3}
 }
 
-/* Deep dive: orange, in every header, on every screen size */
-header.bar .dd-cta{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 16px;margin-left:16px;border-radius:8px;background:#D9622A;color:#fff;text-decoration:none;font:500 .8125rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
-header.bar .dd-cta:hover{background:#EE7B30;color:#fff}
+/* Header call to action (was the orange "Deep dive"): Southern University gold, navy text, every header, every size */
+header.bar .dd-cta{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 16px;margin-left:16px;border-radius:var(--r-btn);background:var(--gold);color:var(--navy);text-decoration:none;font:500 .8125rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+header.bar .dd-cta:hover{background:var(--gold-2);color:var(--navy)}
 @media (max-width:1180px){header.bar .dd-cta{margin-left:auto}header.bar .menu-btn{margin-left:12px}}
 @media (max-width:600px){header.bar .dd-cta{padding:0 10px;font-size:.75rem}header.bar .menu-btn{margin-left:8px}}
 @media (max-width:420px){header.bar .su-lock{display:none}}
+
+
+/* =====================================================================================================
+   XR Jags additions (Oct 2026). Southern University colors (COLORS.md):
+   gold #FFC72C (navy text on gold, never white; gold TEXT on white uses #8A6A00), Columbia Blue #69B3E7 / #1F6FAE (text-safe on white), navy #00263A.
+   Fallbacks below; each page's <style id="tokens"> sets the same values so /tweak can edit them.
+   ===================================================================================================== */
+:root{--gold:#FFC72C;--gold-2:#FFD45C;--gold-deep:#E0A91F;--gold-text:#8A6A00;--blue:#69B3E7;--blue-deep:#3B8FCF;--blue-text:#1F6FAE;--navy:#00263A}
+
+/* typographic wordmark (no XR Jags logo file exists yet) */
+header.bar .name.wm{gap:8px;font-weight:500}
+header.bar .name.wm b{font-weight:500;color:var(--navy)}
+header.bar .name.wm i{font-style:normal;display:inline-block;width:8px;height:8px;background:var(--gold);border-radius:2px;transform:translateY(-.5em)}
+@media (max-width:420px){header.bar .name.wm{font-size:1.35rem}}
+
+/* gold primary button (navy text on gold) */
+.btn.gold{background:var(--gold);border-color:var(--gold-deep);color:var(--navy)}
+.btn.gold:hover{background:var(--gold-2)}
+a{text-decoration-color:var(--blue-text)}
+.kicker.blue,.tag.blue{color:var(--blue-text)}
+.pill-free{border-radius:var(--r-btn)}
+
+/* way-back link (site.js adds it when the address has ?from=/path) */
+.wayback{max-width:var(--maxw);margin:12px auto 0;padding:0 max(var(--gutter),env(safe-area-inset-right)) 0 max(var(--gutter),env(safe-area-inset-left))}
+.wayback a{display:inline-flex;align-items:center;gap:8px;min-height:var(--tap);font:500 .8125rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.05em;color:var(--blue-text);text-decoration:none}
+.wayback a::before{content:"";width:10px;height:10px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)}
+.wayback a:hover{text-decoration:underline}
+
+/* "?" help (site.js turns [data-help] into a button + short text). Without JS nothing is added. */
+.help-q{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;margin:6px 0 6px 10px;padding:0;border:1px solid var(--blue-text);border-radius:var(--r-btn);background:var(--panel);color:var(--blue-text);font:600 .9375rem/1 var(--font-body);cursor:pointer;vertical-align:middle;position:relative}
+.help-q::before{content:"";position:absolute;inset:-6px}
+.help-q[aria-expanded="true"]{background:var(--blue-text);color:#fff}
+.help-q:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.help-t{grid-column:1/-1;margin:0 0 24px;padding:14px 18px;border-left:3px solid var(--gold);background:var(--panel);border-radius:0 var(--r-btn) var(--r-btn) 0;color:var(--ink);max-width:70ch;font-size:.9375rem}
+section.panel .help-t,.card .help-t{background:var(--bg)}
+.help-t[hidden]{display:none}
+.help-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.hero .help-q{background:transparent;border-color:#00263A;color:#00263A}
+.hero .help-t{background:rgba(255,255,255,.55);color:#00263A;border-left-color:#00263A}
+
+/* forms */
+.su-form{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;background:var(--panel);border-radius:var(--r);padding:32px}
+section.panel .su-form{background:var(--bg)}
+.su-form .f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.su-form .f.full,.su-form .full{grid-column:1/-1}
+.su-form label,.su-form legend{font:500 .8125rem/1.3 var(--font-body);text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+.su-form .req{color:var(--blue-text)}
+.su-form input,.su-form select,.su-form textarea{width:100%;min-height:var(--tap);padding:10px 14px;border:1px solid #9A9A9A;border-radius:var(--r-btn);background:#fff;color:var(--ink);font:400 1rem/1.4 var(--font-body)}
+.su-form textarea{min-height:120px;resize:vertical}
+.su-form input:focus-visible,.su-form select:focus-visible,.su-form textarea:focus-visible{outline:2px solid var(--blue-text);outline-offset:1px;border-color:var(--blue-text)}
+.su-form .hint{font-size:.8125rem;color:var(--ink-2);margin:0}
+.su-form .actions{grid-column:1/-1;align-items:center}
+.su-form .btn{min-width:180px}
+.su-form .btn[disabled]{opacity:.6;cursor:progress}
+.hp{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media (max-width:640px){.su-form{grid-template-columns:1fr;padding:22px}}
+
+/* lead-capture status messages (su-leads.js), SU colors */
+.su-status{grid-column:1/-1;margin:4px 0 0;padding:12px 16px;border-radius:var(--r-btn);font:500 .9375rem/1.45 var(--font-body);border:1px solid transparent}
+.su-status:empty{display:none}
+.su-status--ok{background:#E6F1FA;border-color:var(--blue-text);color:var(--navy)}
+.su-status--warn{background:#FFF6DA;border-color:var(--gold-deep);color:var(--navy)}
+.su-status--err{background:#FDECEC;border-color:#B3261E;color:#7A1712}
+.su-status--busy{background:#EEF2F5;border-color:#9AA7B1;color:var(--navy)}
+
+/* designed slots for content that is still coming */
+.slot{display:flex;flex-direction:column;justify-content:center;gap:6px;min-height:160px;padding:24px;border:1.5px dashed #9AA7B1;border-radius:var(--r);background:repeating-linear-gradient(135deg,rgba(105,179,231,.08) 0 12px,transparent 12px 24px);color:var(--ink-2)}
+.slot b{font:400 1.15rem/1.2 var(--font-display);color:var(--navy);letter-spacing:-.01em}
+.slot small{font:400 .75rem/1.4 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--blue-text)}
+
+/* project sections */
+.proj-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.proj-meta li{font:500 .6875rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-radius:6px;background:#E6F1FA;color:var(--navy)}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cols2 .card ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+.cols2 .card li{margin:.45em 0}
+@media (max-width:900px){.cols2{grid-template-columns:1fr}}
+
+/* launch block */
+.launch{background:var(--navy);color:#fff;border-radius:var(--r);padding:32px;position:relative;overflow:hidden}
+.launch::before{content:"";position:absolute;left:0;top:0;right:0;height:6px;background:linear-gradient(90deg,var(--gold) 0 50%,var(--blue) 50% 100%)}
+.launch h3{color:#fff;font-size:clamp(1.6rem,3vw,2.4rem);margin:8px 0 12px}
+.launch p{color:rgba(255,255,255,.88)}
+.launch .tag{color:var(--gold)}
+.launch .btn.line{border-color:rgba(255,255,255,.7);color:#fff}
+.launch .btn.line:hover{background:#fff;color:var(--navy)}
+.launch :focus-visible{outline-color:var(--gold)}
+
+/* team cards + hover preview */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.person{background:var(--panel);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:110px;transition:box-shadow .3s var(--ease)}
+section.panel .person{background:var(--bg)}
+.person:target,.person.is-open{box-shadow:0 0 0 2px var(--blue-text)}
+.person .ph{aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#E6EBEF;margin:0}
+.person .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.person .ph.slot{min-height:0;aspect-ratio:1/1;border-radius:16px;padding:16px}
+.person h3{font-size:1.25rem}
+.person h3 a{text-decoration:none}
+.person h3 a:hover,.person h3 a:focus-visible{text-decoration:underline}
+.person .role{margin:0;color:var(--ink-2);font-size:.9375rem}
+.person .li{font:500 .75rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.05em;min-height:var(--tap);display:inline-flex;align-items:center;color:var(--blue-text)}
+.person .li.none{color:var(--ink-2);text-transform:none;letter-spacing:0;font-weight:400;font-size:.8125rem}
+.person details{border-top:1px solid var(--line);padding-top:6px}
+.person summary{cursor:pointer;min-height:var(--tap);display:flex;align-items:center;font:500 .75rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+.person details p{font-size:.9375rem;color:var(--ink-2)}
+.pv-card{position:fixed;z-index:120;width:220px;background:var(--panel);border-radius:14px;box-shadow:0 18px 48px rgba(0,38,58,.22),0 0 0 1px rgba(0,38,58,.08);padding:10px;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease}
+.pv-card.on{opacity:1;transform:none}
+.pv-card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;display:block;background:#E6EBEF}
+.pv-card b{display:block;margin:10px 4px 2px;font:400 1.05rem/1.2 var(--font-display);color:var(--ink)}
+.pv-card span{display:block;margin:0 4px 4px;font-size:.8125rem;color:var(--ink-2);line-height:1.35}
+@media (prefers-reduced-motion:reduce){.pv-card{transition:none}}
+a.pv{text-decoration-color:var(--blue-text)}
+
+/* plain fact list */
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.facts div{border-top:1px solid var(--ink);padding-top:14px}
+.facts b{display:block;font:300 clamp(1.8rem,3.4vw,2.8rem)/1 var(--font-display);letter-spacing:-.03em}
+.facts span{display:block;margin-top:10px;color:var(--ink-2);font-size:.9375rem}
+
+/* funding acknowledgments (renders only entries with text, see assets/funding.js) */
+.funding:empty{display:none}
+.funding{display:grid;gap:12px}
+.funding p{margin:0;padding:16px 20px;border-left:3px solid var(--blue-text);background:var(--panel);border-radius:0 var(--r-btn) var(--r-btn) 0}
+.funding p b{display:block;font:500 .75rem/1.4 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--blue-text);margin-bottom:4px}
+
+/* staff dashboard */
+.dash-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:0 0 16px}
+.dash-tools .f{display:flex;flex-direction:column;gap:6px}
+.dash-tools label{font:500 .75rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.05em}
+.dash-tools select{min-height:var(--tap);padding:0 12px;border:1px solid #9A9A9A;border-radius:var(--r-btn);background:#fff;font:400 .9375rem var(--font-body)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r);background:var(--panel);max-width:100%}
+section.panel .tbl-wrap{background:var(--bg)}
+table.dash{width:100%;border-collapse:collapse;font-size:.875rem;min-width:760px}
+table.dash th,table.dash td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+table.dash th{font:500 .6875rem/1.3 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);background:rgba(0,38,58,.04)}
+table.dash td select{min-height:36px;border:1px solid #9A9A9A;border-radius:8px;background:#fff;padding:0 8px;font:inherit}
+table.dash .det{color:var(--ink-2);font-size:.8125rem;max-width:34ch;white-space:pre-wrap;word-break:break-word}
+.dash-empty{padding:24px;color:var(--ink-2)}
+.pw-wrap{display:flex;gap:8px}
+.pw-wrap input{flex:1;min-width:0}
+.pw-toggle{flex:none;min-height:var(--tap);padding:0 14px;border:1px solid var(--blue-text);border-radius:var(--r-btn);background:#fff;color:var(--blue-text);font:500 .8125rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.pw-toggle[aria-pressed="true"]{background:var(--blue-text);color:#fff}
+.signed{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:24px}
+[hidden]{display:none!important}
+footer .staff-link{font-size:.75rem;color:var(--ink-2)}
+footer .staff-link a{color:var(--ink-2)}
+/* XR Jags nav has 7 items: keep it on one line at desktop widths */
+@media (min-width:1181px){header.bar .wrap{gap:16px}header.bar nav{gap:4px 18px;flex-wrap:nowrap}.fnav-on [data-fnav] a{font-size:12px;letter-spacing:.06em}header.bar .dd-cta{margin-left:4px;padding:0 12px}header.bar .su-lock{margin-left:8px;padding-left:8px}}
+@media (min-width:1181px) and (max-width:1320px){header.bar .su-lock{display:none}}
+/* initials avatar for people without a photo: navy circle, gold initials */
+.person .ph.initials{display:grid;place-items:center;background:var(--bg)}
+section.panel .person .ph.initials{background:var(--panel)}
+.person .ph.initials span{display:grid;place-items:center;width:62%;aspect-ratio:1/1;border-radius:50%;background:var(--navy);color:var(--gold);font:500 clamp(2.2rem,5vw,3.4rem)/1 var(--font-display);letter-spacing:.02em}
