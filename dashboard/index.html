@@ -71,7 +71,7 @@
 <section id="app" data-section="Dashboard" hidden><div class="wrap">
 <p class="kicker">Signed in</p>
 <div class="signed wide"><p id="who" class="lede" style="margin:0"></p><div class="tk-signed-acts"><span class="tk-bell-wrap" id="tk-bell-wrap" hidden><button class="tk-bell" type="button" id="tk-bell" aria-expanded="false" aria-controls="tk-bell-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span>Updates</span><b class="tk-badge" id="tk-badge" hidden>0</b></button><div class="tk-bell-pop" id="tk-bell-pop" role="region" aria-label="Your updates" hidden><div class="tk-bell-head"><b>Your updates</b><button class="tk-link" type="button" id="tk-bell-all">Mark all read</button></div><ul id="tk-bell-list"></ul></div></span><button class="btn line" type="button" id="signout">Sign out</button></div></div>
-<nav class="tk-tabs wide" id="tk-tabs" aria-label="Dashboard sections"><a href="#my-tasks" data-tab="my-tasks">My tasks</a><a href="#team-tasks" data-tab="team-tasks" data-mgr hidden>Team tasks</a><a href="#team" data-tab="team" data-mgr hidden>Team</a><a href="#deleted" data-tab="deleted" data-mgr hidden>Deleted</a><a href="#leads" data-tab="leads">Leads</a><a href="#activity" data-tab="activity">Activity log</a><a href="#uploads" data-tab="uploads">Uploads</a></nav>
+<nav class="tk-tabs wide" id="tk-tabs" aria-label="Dashboard sections"><a href="#my-tasks" data-tab="my-tasks">My tasks</a><a href="#team-tasks" data-tab="team-tasks" data-mgr hidden>Team tasks</a><a href="#team" data-tab="team" data-mgr hidden>Team</a><a href="#deleted" data-tab="deleted" data-mgr hidden>Deleted</a><a href="#leads" data-tab="leads">Leads</a><a href="#activity" data-tab="activity">Activity log</a><a href="#uploads" data-tab="uploads">Uploads</a><a href="#partners" data-tab="partners">Partners</a></nav>
 </div></section>
 <section id="t-my-tasks" class="panel" data-section="My tasks" hidden data-help="Tasks you are on. Use the big buttons to move a task along: Start, Ready for review, Mark done. Post an update to tell the director how it is going. Tick checklist steps as you finish them. Overdue tasks show the date in red." data-help-label="my tasks"><div class="wrap">
 <p class="kicker">My tasks</p><h2 class="two">What I am <span class="on">working on.</span></h2>
@@ -169,6 +169,36 @@
 <h3>Recent uploads</h3>
 <ul class="up-list wide" id="up-list" aria-label="Recent uploads"></ul>
 </div></section>
+<section id="t-partners" class="panel" data-section="Partners" hidden data-help="Partners are the organizations that help XR Jags. For each one, track what they offered, what they actually delivered, and the dates. Every potential partner must sign an NDA and gets an MOU. Everyone on the team can see this list. Managers and student leads can add and change partners; only managers can remove them." data-help-label="partners"><div class="wrap">
+<p class="kicker">Partners</p><h2 class="two">What partners offer <span class="on">and deliver.</span></h2>
+<div class="wide" id="pt-main">
+<div class="pt-summary" id="pt-summary" aria-label="Partners in numbers"></div>
+<div class="pt-box" id="pt-tools-wrap" data-help="Pick a kind to see only resource partners, sponsors or program partners. Tick NDA not signed yet to see who still needs to sign. Hover a partner's name for a quick look; select the name to open it." data-help-label="the partners list"><h3 class="pt-box-h help-anchor"><span>Partner list</span></h3>
+<div class="dash-tools"><div class="f"><label for="pt-kind">Kind</label><select id="pt-kind"><option value="">All kinds</option><option value="resource">Resource partner</option><option value="sponsor">Sponsor</option><option value="program">Program partner</option></select></div>
+<label class="pt-check" for="pt-nda-open"><input type="checkbox" id="pt-nda-open"> NDA not signed yet</label>
+<a class="btn gold" href="#partners/add" id="pt-add-btn" hidden>Add partner</a></div>
+</div>
+<p class="su-status" id="pt-status" role="status" aria-live="polite"></p>
+<ul class="pt-list" id="pt-list" aria-label="Partners"></ul>
+</div>
+<div class="wide" id="pt-add" hidden>
+<p><a class="tk-back" href="#partners">Back to Partners</a></p>
+<div class="pt-box" data-help="Put in the partner's name and kind. Contact and notes are optional. Every potential partner must sign an NDA and gets an MOU: set where each one is now (most start at Not started). You can add what they offered on the next screen." data-help-label="adding a partner"><h3 class="pt-box-h help-anchor"><span>Add partner</span></h3>
+<form class="su-form" id="pa-form" aria-label="Add partner">
+<div class="f full"><label for="pa-name">Partner name <span class="req" aria-hidden="true">*</span></label><input id="pa-name" name="name" type="text" maxlength="200" required></div>
+<div class="f"><label for="pa-kind">Kind <span class="req" aria-hidden="true">*</span></label><select id="pa-kind" name="kind" required><option value="">Choose one</option><option value="resource">Resource partner</option><option value="sponsor">Sponsor</option><option value="program">Program partner</option></select></div>
+<div class="f"><label for="pa-contact">Contact person</label><input id="pa-contact" name="contact_name" type="text" maxlength="200" autocomplete="off"></div>
+<div class="f"><label for="pa-email">Contact email</label><input id="pa-email" name="contact_email" type="email" maxlength="320" autocomplete="off"></div>
+<div class="f"><label for="pa-nda">NDA</label><select id="pa-nda" name="nda_status"><option value="not_started">Not started</option><option value="drafted">Drafted</option><option value="sent">Sent</option><option value="signed">Signed</option></select></div>
+<div class="f"><label for="pa-mou">MOU</label><select id="pa-mou" name="mou_status"><option value="not_started">Not started</option><option value="drafted">Drafted</option><option value="sent">Sent</option><option value="signed">Signed</option></select></div>
+<div class="f"><label for="pa-other">Other agreement</label><select id="pa-other" name="other_agreement"><option value="none">None</option><option value="moa">MOA</option><option value="sponsor_agreement">Sponsor agreement</option><option value="other">Other</option></select></div>
+<div class="f full"><label for="pa-notes">Notes</label><textarea id="pa-notes" name="notes" maxlength="4000"></textarea></div>
+<div class="actions"><button class="btn gold" type="submit">Add partner</button></div>
+<p class="su-status" id="pa-status" role="status" aria-live="polite"></p>
+</form></div>
+</div>
+<div class="wide" id="pt-view" hidden></div>
+</div></section>
 <noscript><section class="panel"><div class="wrap"><p class="lede">The staff dashboard needs JavaScript.</p></div></section></noscript>
 </main>
 <footer data-section="Footer"><div class="wrap">
@@ -194,6 +224,7 @@
 <script src="/tweak.js" data-site="XR Jags" defer></script>
 <script src="/assets/autoplay.js?v=20261017f" defer></script>
 <script src="/assets/tasks.js" defer></script>
+<script src="/assets/partners.js" defer></script>
 <script src="/assets/dashboard.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="/assets/su-config.js"></script><script src="/assets/su-leads.js" defer></script>
 </body>

@@ -9,9 +9,9 @@
   var ST = { todo: "To do", doing: "Working on it", review: "Ready for review", done: "Done" };
   var ORDER = ["todo", "doing", "review", "done"];
   var ROLE = { student: "Student", student_lead: "Student lead", leadership: "Leadership", admin: "Admin (director)" };
-  var TABS = ["my-tasks", "team-tasks", "team", "deleted", "leads", "activity", "uploads"];
+  var TABS = ["my-tasks", "team-tasks", "team", "deleted", "leads", "activity", "uploads", "partners"];
   var MGR_TABS = ["team-tasks", "team", "deleted"];
-  var TAB_NAME = { "my-tasks": "My tasks", "team-tasks": "Team tasks", team: "Team", deleted: "Deleted", leads: "Leads", activity: "Activity log", uploads: "Uploads" };
+  var TAB_NAME = { "my-tasks": "My tasks", "team-tasks": "Team tasks", team: "Team", deleted: "Deleted", leads: "Leads", activity: "Activity log", uploads: "Uploads", partners: "Partners" };
   var POLL_MS = 30000;
   var $ = function (id) { return document.getElementById(id); };
 
@@ -647,7 +647,7 @@
       q(S.db.from("task_checklist").select("id,task_id,text,done,done_by,done_at,position").order("position").limit(10000))
     ]).then(function (r) {
       S.staff = r[0] || []; S.byId = {}; S.staff.forEach(function (p) { S.byId[p.user_id] = p; });
-      var mine = S.byId[S.me.user_id]; if (mine) { S.me = mine; S.isMgr = mine.active !== false && (mine.role === "admin" || mine.role === "leadership"); }
+      var mine = S.byId[S.me.user_id]; if (mine) { S.me = mine; S.isMgr = mine.active !== false && (mine.role === "admin" || mine.role === "leadership"); if (window.XRPartners) window.XRPartners.setMe(mine); }
       S.tasks = r[1] || []; S.members = {}; (r[2] || []).forEach(function (m) { (S.members[m.task_id] = S.members[m.task_id] || []).push(m.user_id); });
       S.checklist = {}; (r[3] || []).forEach(function (c) { (S.checklist[c.task_id] = S.checklist[c.task_id] || []).push(c); });
       S.loadErr = false;
@@ -680,8 +680,8 @@
     show("tk-quick", false); show("tt-table", false);
   }
 
-  // ---------- tabs + routes (#my-tasks, #team-tasks, #team-tasks/give, #team-tasks/person/<id>, #team, #deleted, #leads, #activity, #uploads, #task/<id>) ----------
-  function sectionFor(tab) { return { "my-tasks": "t-my-tasks", "team-tasks": "t-team-tasks", team: "t-team", deleted: "t-deleted", leads: "leads", activity: "activity", uploads: "uploads" }[tab]; }
+  // ---------- tabs + routes (#partners, #partners/add, #partners/p/<id> are drawn by partners.js; #my-tasks, #team-tasks, #team-tasks/give, #team-tasks/person/<id>, #team, #deleted, #leads, #activity, #uploads, #task/<id>) ----------
+  function sectionFor(tab) { return { "my-tasks": "t-my-tasks", "team-tasks": "t-team-tasks", team: "t-team", deleted: "t-deleted", leads: "leads", activity: "activity", uploads: "uploads", partners: "t-partners" }[tab]; }
   function route() {
     if (!S) return;
     var hsh = location.hash.replace(/^#/, ""), m;
@@ -700,6 +700,7 @@
     applyTab(tab);
     if (tab === "team-tasks") renderTeam(changed);
     if (tab === "team") hideTemp();
+    if (tab === "partners" && window.XRPartners) window.XRPartners.show(/^partners(\/|$)/.test(hsh) ? hsh : "partners");
     if (changed) { var app = $("app"); if (app && app.getBoundingClientRect().top < 0) app.scrollIntoView(); }
   }
   function applyTab(tab) {
@@ -790,6 +791,7 @@
       function go() {
         reveal();
         if (S.me && S.me.full_name) $("who").textContent = "Signed in as " + S.me.full_name + (S.isMgr ? " (manager)" : "");
+        if (window.XRPartners) window.XRPartners.start(db, S.me);
         refresh(true).then(function () { route(); if (!location.hash) S.tab && applyTab(S.tab); });
         route();
         clearInterval(pollT);
@@ -799,7 +801,8 @@
     stop: function () {
       clearInterval(pollT); pollT = null;
       if (dlgTask) closeTask(true);
-      ["pwchange", "t-my-tasks", "t-team-tasks", "t-team", "t-deleted"].forEach(function (id) { show(id, false); });
+      if (window.XRPartners) window.XRPartners.stop();
+      ["pwchange", "t-my-tasks", "t-team-tasks", "t-team", "t-deleted", "t-partners"].forEach(function (id) { show(id, false); });
       hideTemp(); drafts = {}; feedCache = {}; S = null;
     },
     _state: function () { return S; }
