@@ -24,9 +24,11 @@
     var db = window.SUdb && window.SUdb();
     if (!db) { show("offline", true); return; }
 
-    function signedOut() { ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, false); }); show("signin", true); }
-    function signedIn(user) {
-      show("signin", false); ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, true); });
+    function signedOut() { ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, false); }); if (window.XRTasks) window.XRTasks.stop(); show("signin", true); }
+    // tasks.js (team tasks) runs first: it shows "Pick your own password" when needed, then calls reveal
+    function signedIn(user) { show("signin", false); if (window.XRTasks) window.XRTasks.start(db, user, function () { reveal(user); }); else reveal(user); }
+    function reveal(user) {
+      ["app", "leads", "activity", "uploads"].forEach(function (s) { show(s, true); });
       $("who").textContent = "Signed in as " + (user.email || "staff");
       var d = $("act-happened-on"); if (d && !d.value) d.value = new Date().toISOString().slice(0, 10);
       loadLeads(); loadActivity(); loadUploads();

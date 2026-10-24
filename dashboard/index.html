@@ -58,10 +58,78 @@
 <p class="su-status" id="si-status" role="status" aria-live="polite"></p>
 </form>
 </div></section>
+<section id="pwchange" class="panel" data-section="Pick your own password" hidden data-help="Your account was made with a temporary password. Pick your own now so only you know it. It must be at least 10 characters. Select Show password to check what you typed." data-help-label="picking your own password"><div class="wrap">
+<p class="kicker">First sign-in</p><h2 class="two">Pick your <span class="on">own password.</span></h2>
+<form class="su-form wide" id="pw-form" aria-label="Pick your own password">
+<p class="full" style="margin:0">You signed in with a temporary password. Choose a new one that only you know. You will use it every time you sign in.</p>
+<div class="f full"><label for="pw-new">New password</label><div class="pw-wrap"><input id="pw-new" name="new_password" type="password" autocomplete="new-password" minlength="10" maxlength="72" required aria-describedby="pw-hint"><button class="pw-toggle" type="button" aria-pressed="false" aria-controls="pw-new">Show password</button></div><p class="hint" id="pw-hint">At least 10 characters. A short sentence you will remember works well.</p></div>
+<div class="f full"><label for="pw-again">Type it again</label><div class="pw-wrap"><input id="pw-again" name="again" type="password" autocomplete="new-password" minlength="10" maxlength="72" required><button class="pw-toggle" type="button" aria-pressed="false" aria-controls="pw-again">Show password</button></div></div>
+<div class="actions"><button class="btn gold" type="submit">Save my password</button></div>
+<p class="su-status" id="pw-status" role="status" aria-live="polite"></p>
+</form>
+</div></section>
 <section id="app" data-section="Dashboard" hidden><div class="wrap">
 <p class="kicker">Signed in</p>
-<div class="signed wide"><p id="who" class="lede" style="margin:0"></p><button class="btn line" type="button" id="signout">Sign out</button></div>
+<div class="signed wide"><p id="who" class="lede" style="margin:0"></p><div class="tk-signed-acts"><span class="tk-bell-wrap" id="tk-bell-wrap" hidden><button class="tk-bell" type="button" id="tk-bell" aria-expanded="false" aria-controls="tk-bell-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span>Updates</span><b class="tk-badge" id="tk-badge" hidden>0</b></button><div class="tk-bell-pop" id="tk-bell-pop" role="region" aria-label="Your updates" hidden><div class="tk-bell-head"><b>Your updates</b><button class="tk-link" type="button" id="tk-bell-all">Mark all read</button></div><ul id="tk-bell-list"></ul></div></span><button class="btn line" type="button" id="signout">Sign out</button></div></div>
+<nav class="tk-tabs wide" id="tk-tabs" aria-label="Dashboard sections"><a href="#my-tasks" data-tab="my-tasks">My tasks</a><a href="#team-tasks" data-tab="team-tasks" data-mgr hidden>Team tasks</a><a href="#team" data-tab="team" data-mgr hidden>Team</a><a href="#deleted" data-tab="deleted" data-mgr hidden>Deleted</a><a href="#leads" data-tab="leads">Leads</a><a href="#activity" data-tab="activity">Activity log</a><a href="#uploads" data-tab="uploads">Uploads</a></nav>
 </div></section>
+<section id="t-my-tasks" class="panel" data-section="My tasks" hidden data-help="Tasks you are on. Use the big buttons to move a task along: Start, Ready for review, Mark done. Post an update to tell the director how it is going. Tick checklist steps as you finish them. Overdue tasks show the date in red." data-help-label="my tasks"><div class="wrap">
+<p class="kicker">My tasks</p><h2 class="two">What I am <span class="on">working on.</span></h2>
+<div class="wide">
+<details class="tk-quick" id="tk-quick"><summary>Add a task for me</summary>
+<form class="su-form" id="tk-quick-form" aria-label="Add a task for me">
+<div class="f full"><label for="tq-title">What needs doing? <span class="req" aria-hidden="true">*</span></label><input id="tq-title" name="title" type="text" maxlength="200" required></div>
+<div class="f"><label for="tq-due">Due date</label><input id="tq-due" name="due_date" type="date"></div>
+<div class="f"><label for="tq-steps">Checklist steps (one per line)</label><textarea id="tq-steps" name="steps" maxlength="3000" rows="3"></textarea></div>
+<div class="actions"><button class="btn gold" type="submit">Add task</button></div>
+<p class="su-status" id="tq-status" role="status" aria-live="polite"></p>
+</form></details>
+<p class="su-status" id="my-status" role="status" aria-live="polite"></p>
+<div id="my-list" class="tk-groups"></div>
+</div></div></section>
+<section id="t-team-tasks" class="panel" data-section="Team tasks" hidden data-help="Every task on the team, in four columns: To do, Working on it, Ready for review, Done. Pick a person to see only their tasks. Switch to Table to see each person's open, overdue, waiting-for-review and done-this-week counts. Give a task hands new work to one or more people." data-help-label="team tasks"><div class="wrap">
+<p class="kicker">Team tasks</p><h2 class="two">Everyone's <span class="on">progress.</span></h2>
+<div class="wide" id="team-main">
+<div class="dash-tools"><div class="f"><label for="tt-person">Person</label><select id="tt-person"><option value="">Everyone</option></select></div>
+<div class="tk-seg" role="group" aria-label="View"><button type="button" class="tk-segb" id="tt-view-board" aria-pressed="true">Board</button><button type="button" class="tk-segb" id="tt-view-table" aria-pressed="false">Table</button></div>
+<a class="btn gold" href="#team-tasks/give" id="tt-give">Give a task</a></div>
+<p class="su-status" id="team-status" role="status" aria-live="polite"></p>
+<div id="tt-board" class="tk-board"></div>
+<div id="tt-table" hidden></div>
+</div>
+<div class="wide" id="team-give" hidden>
+<p><a class="tk-back" href="#team-tasks">Back to Team tasks</a></p>
+<form class="su-form" id="give-form" aria-label="Give a task">
+<div class="f full"><label for="gv-title">Task <span class="req" aria-hidden="true">*</span></label><input id="gv-title" name="title" type="text" maxlength="200" required></div>
+<div class="f full"><label for="gv-details">Details</label><textarea id="gv-details" name="details" maxlength="4000"></textarea></div>
+<fieldset class="f full tk-people-pick"><legend>Who is it for? <span class="req" aria-hidden="true">*</span></legend><div id="gv-people" class="tk-pick"></div></fieldset>
+<div class="f"><label for="gv-due">Due date</label><input id="gv-due" name="due_date" type="date"></div>
+<fieldset class="f"><legend>Priority</legend><div class="tk-radio"><label><input type="radio" name="priority" value="normal" checked> Normal</label><label><input type="radio" name="priority" value="high"> High</label></div></fieldset>
+<div class="f full"><label for="gv-steps">Checklist steps (one per line)</label><textarea id="gv-steps" name="steps" maxlength="3000" aria-describedby="gv-steps-hint"></textarea><p class="hint" id="gv-steps-hint">Optional. Each line becomes a box they can tick.</p></div>
+<div class="actions"><button class="btn gold" type="submit">Give the task</button></div>
+<p class="su-status" id="gv-status" role="status" aria-live="polite"></p>
+</form>
+</div>
+</div></section>
+<section id="t-team" class="panel" data-section="Team" hidden data-help="The people who can sign in. Add member makes a login with a temporary password that shows once: give it to them in person or by text. Reset password makes a new temporary one. Turn off access stops someone signing in straight away; Turn on access lets them back." data-help-label="the team list"><div class="wrap">
+<p class="kicker">Team</p><h2 class="two">Who can <span class="on">sign in.</span></h2>
+<div class="wide">
+<div class="tk-temp" id="tk-temp" role="status" aria-live="polite" hidden><p class="tk-temp-h" id="tk-temp-h"></p><div class="tk-temp-row"><code id="tk-temp-pw"></code><button class="btn gold" type="button" id="tk-temp-copy">Copy</button></div><p>Give this to them in person or by text; they will pick their own password at first sign-in.</p><button class="btn line" type="button" id="tk-temp-hide">Done, hide it</button></div>
+<details class="tk-quick" id="tm-add"><summary>Add member</summary>
+<form class="su-form" id="tm-form" aria-label="Add member">
+<div class="f"><label for="tm-name">Full name <span class="req" aria-hidden="true">*</span></label><input id="tm-name" name="full_name" type="text" maxlength="120" autocomplete="off" required></div>
+<div class="f"><label for="tm-email">Email <span class="req" aria-hidden="true">*</span></label><input id="tm-email" name="email" type="email" maxlength="320" autocomplete="off" required></div>
+<div class="f"><label for="tm-role">Role <span class="req" aria-hidden="true">*</span></label><select id="tm-role" name="role" required></select></div>
+<div class="actions"><button class="btn gold" type="submit">Add member</button></div>
+</form></details>
+<p class="su-status" id="tm-status" role="status" aria-live="polite"></p>
+<ul class="tk-members" id="tm-list" aria-label="Team members"></ul>
+</div></div></section>
+<section id="t-deleted" class="panel" data-section="Deleted tasks" hidden data-help="Tasks someone deleted, with who did it, when, and why. Restore puts a task back exactly where it was. Only managers see this list." data-help-label="deleted tasks"><div class="wrap">
+<p class="kicker">Deleted</p><h2 class="two">Deleted <span class="on">tasks.</span></h2>
+<div class="wide"><p class="su-status" id="del-status" role="status" aria-live="polite"></p><ul class="tk-del" id="del-list" aria-label="Deleted tasks"></ul></div>
+</div></section>
+<dialog class="tk-dlg" id="tk-dlg" aria-labelledby="dlg-title"><div class="tk-dlg-in" id="tk-dlg-in"></div></dialog>
 <section id="leads" class="panel" data-section="Leads" hidden data-help="Every request sent from this site's forms, newest first. Filter by form or status. Changing a status saves it straight away." data-help-label="the leads table"><div class="wrap">
 <p class="kicker">Leads</p><h2 class="two">Requests <span class="on">from the website.</span></h2>
 <div class="wide">
@@ -125,6 +193,7 @@
 <script src="/assets/orbit.js" defer></script>
 <script src="/tweak.js" data-site="XR Jags" defer></script>
 <script src="/assets/autoplay.js?v=20261017f" defer></script>
+<script src="/assets/tasks.js" defer></script>
 <script src="/assets/dashboard.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="/assets/su-config.js"></script><script src="/assets/su-leads.js" defer></script>
 </body>
