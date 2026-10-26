@@ -14,14 +14,14 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 const ROLES = ["student", "student_lead", "leadership", "admin"] as const;
 type Role = typeof ROLES[number];
 const MANAGER_ROLES: Role[] = ["admin", "leadership"];
-const ALLOWED_ORIGIN = "https://caav-website.vercel.app";
+const ALLOWED_ORIGINS = ["https://caav-website.vercel.app", "https://suvrjags.org", "https://www.suvrjags.org"];
 const LOCALHOST = /^http:\/\/localhost(:\d{1,5})?$/;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
 const BAN_FOREVER = "876000h"; // about 100 years
 
 function cors(origin: string | null): Record<string, string> {
-  const ok = origin && (origin === ALLOWED_ORIGIN || LOCALHOST.test(origin));
+  const ok = origin && (ALLOWED_ORIGINS.includes(origin) || LOCALHOST.test(origin));
   return {
     ...(ok ? { "Access-Control-Allow-Origin": origin! } : {}),
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
   const origin = req.headers.get("Origin");
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors(origin) });
   if (req.method !== "POST") return reply(origin, 405, { ok: false, error: "Use POST." });
-  if (origin && !(origin === ALLOWED_ORIGIN || LOCALHOST.test(origin))) {
+  if (origin && !(ALLOWED_ORIGINS.includes(origin) || LOCALHOST.test(origin))) {
     return reply(origin, 403, { ok: false, error: "This page is not allowed to manage members." });
   }
 

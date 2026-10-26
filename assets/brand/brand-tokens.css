@@ -12,7 +12,7 @@
   --invert:#00263A;  /* dark panels: SU Navy */
   --gold:#FFC72C; --gold-2:#FFD45C; --gold-deep:#E0A91F; --gold-text:#8A6A00;  /* SU Gold PMS 123; gold text on white */
   --navy:#00263A;    /* SU Navy PMS 2965 */
-  --blue:#69B3E7; --blue-text:#1F6FAE;  /* Columbia Blue PMS 292; text-safe on white */
+  --blue:#69B3E7; --blue-text:#1F5F8B;  /* Columbia Blue PMS 292; text-safe on white */
   --font-display:"Supreme","Helvetica Neue",Arial,sans-serif;  /* 300/400 */
   --font-body:"Switzer","Helvetica Neue",Arial,sans-serif;     /* 400/500 */
   --r:24px; --r-btn:10px; --blob:40px; --tap:44px;
