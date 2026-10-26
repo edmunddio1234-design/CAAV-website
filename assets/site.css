@@ -528,6 +528,8 @@ header.bar .hbtn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 @media (min-width:1181px){header.bar nav{margin-left:auto;margin-right:18px}header.bar .hb-opt{display:none}}
 @media (min-width:1440px){header.bar .hb-opt{display:inline}}
 @media (max-width:1180px){header.bar .hbtn-line{margin-left:auto}header.bar .menu-btn{margin-left:12px}}
+/* Oct 26: on tablet widths the long button pushed the Menu button off screen; drop the "/ Book a demo" half below 960px */
+@media (max-width:960px){header.bar .hb-opt{display:none}}
 @media (max-width:640px){header.bar .hbtn-line{display:none}header.bar .hbtn-gold{margin-left:auto;padding:0 12px}header.bar .hb-opt{display:none}}
 @media (max-width:360px){header.bar .hbtn-gold{padding:0 8px;font-size:.6875rem}}
 
