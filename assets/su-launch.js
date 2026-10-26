@@ -86,7 +86,7 @@
     '.su-l__band{height:8px;background:linear-gradient(90deg,#FFC72C 0 50%,#69B3E7 50% 100%)}' +
     '.su-l__body{padding:26px 26px 24px;display:grid;gap:14px}' +
     '.su-l__eye{padding-right:44px;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#FFC72C;margin:0}' +
-    '.su-l__h{font-size:1.7rem;line-height:1.15;margin:0;font-weight:600}' +
+    '.su-l__h{font-size:1.7rem;line-height:1.15;margin:0;font-weight:600;color:#fff}' +
     '.su-l__p{margin:0;color:rgba(255,255,255,.82);line-height:1.5}' +
     '.su-l__row{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}' +
     '.su-l__btn{display:block;text-align:center;padding:12px 14px;border-radius:10px;text-decoration:none;font-weight:600;min-height:44px;box-sizing:border-box}' +
