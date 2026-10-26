@@ -272,23 +272,17 @@ section>.wrap>.actions{margin-top:8px}
    yellow"): the shared top-section field was the AM Lab red-orange. It is now a Southern University GOLD field
    (#FFD45C -> #FFC72C -> #E0A91F) with NAVY #00263A text on it (never white on gold). It lives ONLY in the top section
    of every site in the family. Do not use it elsewhere on the page. ===== */
-:root{--family-heat:#FFC72C;--family-heat-2:#FFD45C;--family-heat-deep:#E0A91F}
+:root{--family-heat:#69B3E7;--family-heat-2:#69B3E7;--family-heat-deep:#69B3E7} /* Oct 26: top section is now solid SU Columbia Blue (owner) */
 .hero{position:relative;isolation:isolate;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-8%;width:auto;height:auto;right:-8%;top:-8%;z-index:-1;border-radius:0;opacity:1;animation:none;transform:scale(1.04);
-  background-color:var(--family-heat);
-  background-image:radial-gradient(ellipse 55% 50% at 62% 42%,var(--family-heat-2) 0,transparent 70%),
-    radial-gradient(ellipse 60% 60% at 30% 70%,var(--family-heat) 0,transparent 72%),
-    radial-gradient(ellipse 70% 55% at 85% 85%,#E0A91F 0,transparent 70%),
-    linear-gradient(160deg,#FFD45C 0%,var(--family-heat) 45%,#E0A91F 100%);
-  filter:blur(28px);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:#69B3E7;pointer-events:none}
 /* hero on the gold field: navy text; the muted first line is translucent navy (large text only) */
 .hero{color:#00263A}
-.hero h1{color:#1F5F8B} /* dark Columbia Blue on gold (large text, 4.4:1); solid so it never turns olive */.hero h1 .on,.hero .ln .w.on{color:#00263A}
+.hero h1{color:rgba(0,38,58,.72)} /* muted navy on Columbia Blue (large text) */.hero h1 .on,.hero .ln .w.on{color:#00263A}
 .hero .kicker,.hero .lede,.hero .stats span{color:#00263A}
 .hero .stats b{color:#00263A}
 .hero .stats div{border-top-color:#00263A}
 .hero .stats div+div{border-left-color:rgba(0,38,58,.25)}
-.hero .btn.line{border-color:rgba(0,38,58,.6);color:#00263A}
+.hero .btn.line{border-color:#00263A;color:#00263A}
 .hero .btn.line:hover{background:#00263A;color:#FFC72C}
 .hero .btn.solid{background:#00263A;color:#fff;border-color:#00263A}
 .hero :focus-visible{outline-color:#00263A}
