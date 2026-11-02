@@ -4,7 +4,7 @@
      The date is ONE optional setting: data-date="Weekday, Month D, YYYY · H:MM AM" (and data-end="YYYY-MM-DDT06:00:00Z"
      to stop showing after the event). Without it the pop-up says "Date to be announced".
    BANNER (optional): add data-banner="on" for a slim, dismissible strip at the top of the page (navy, gold text):
-     "Mobile CAVE launch · Date to be announced" with "Book a tour" and "Become a sponsor" links.
+     "Mobile CAVE launch · Date to be announced" with "Book a Tour" and "Become a Sponsor" links.
      When data-date AND data-target="YYYY-MM-DDTHH:MM:SS-06:00" (ISO date-time) are both set, it shows the date and a
      live countdown ("N days") instead. Dismissing it is remembered per visitor. It shows on every page that includes
      it (including the target pages, where the link to the page you are on is left out), slides in smoothly
@@ -41,8 +41,8 @@
     function q(u) { var t; try { t = new URL(u, location.href); } catch (e) { return u; } if (t.origin !== location.origin) return u; return u + (u.indexOf('?') > -1 ? '&' : '?') + 'from=' + back; }
     var b = document.createElement('div'); b.className = 'su-b';
     b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Mobile CAVE launch announcement');
-    var links = (L.tour && !same(L.tour) ? '<a href="' + q(L.tour) + '">Book a tour</a>' : '') +
-                (L.sponsor && !same(L.sponsor) ? '<a href="' + q(L.sponsor) + '">Become a sponsor</a>' : '');
+    var links = (L.tour && !same(L.tour) ? '<a href="' + q(L.tour) + '">Book a Tour</a>' : '') +
+                (L.sponsor && !same(L.sponsor) ? '<a href="' + q(L.sponsor) + '">Become a Sponsor</a>' : '');
     b.innerHTML = '<div class="su-b__in"><p class="su-b__t"><b>Mobile CAVE launch</b> · <span data-su-b-when></span></p>' +
       (links ? '<span class="su-b__l">' + links + '</span>' : '') + '</div>' +
       '<button class="su-b__x" type="button" aria-label="Hide the launch announcement">&times;</button>';
@@ -107,8 +107,8 @@
       '<h2 class="su-l__h" id="su-l-h">The Southern University Mobile CAVE launches</h2>' +
       '<p class="su-l__p">Ribbon cutting and live 3D demos at the Leon Waters Museum on the Southern University campus.' + (DATE ? '' : ' Book a tour or sign up as a sponsor now and we will send you the date.') + '</p>' +
       '<div class="su-l__row">' +
-      (L.tour ? '<a class="su-l__btn su-l__btn--gold" href="' + q(L.tour) + '">Book a school tour</a>' : '') +
-      (L.sponsor ? '<a class="su-l__btn su-l__btn--blue" href="' + q(L.sponsor) + '">Become a sponsor</a>' : '') +
+      (L.tour ? '<a class="su-l__btn su-l__btn--gold" href="' + q(L.tour) + '">Book a Tour</a>' : '') +
+      (L.sponsor ? '<a class="su-l__btn su-l__btn--blue" href="' + q(L.sponsor) + '">Become a Sponsor</a>' : '') +
       (L.media ? '<a class="su-l__btn su-l__btn--blue" href="' + q(L.media) + '">Media and press</a>' : '') +
       '</div></div></div>';
     document.body.appendChild(w);

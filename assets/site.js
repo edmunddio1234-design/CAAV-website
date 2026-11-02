@@ -5,7 +5,8 @@
 var FAMILY = [
   { id: "caav",      name: "XR Jags",             url: "/" },   /* id kept as "caav" so existing markup keeps working */
   { id: "immersion", name: "Immersion in Motion", url: "https://immersion-in-motion.vercel.app/" },
-  { id: "amlab",     name: "AM Lab",              url: "https://am-lab-3d-printing.vercel.app" }
+  { id: "cave",      name: "CAVE",                url: "/cave" },
+  { id: "amlab",     name: "IMPACT 3D Lab",       url: "https://am-lab-3d-printing.vercel.app" }
 ];
 
 (function () {
@@ -15,7 +16,8 @@ var FAMILY = [
   // ---------- site family links: rewrite hrefs from FAMILY (the HTML holds the same values for no-JS visitors) ----------
   FAMILY.forEach(function (f) {
     document.querySelectorAll('a[data-family="' + f.id + '"]').forEach(function (a) {
-      a.href = f.url; a.textContent = f.name;
+      a.href = f.url;
+      if (!a.querySelector("svg")) a.textContent = f.name; /* tab bar links keep their icon */
       if (/^https?:/.test(f.url)) { a.target = "_blank"; a.rel = "noopener"; }
     });
   });
@@ -92,7 +94,7 @@ var FAMILY = [
     openTarget(); addEventListener("hashchange", openTarget);
   })();
 
-  // ---------- Sectors dropdown (desktop): the button toggles the list; Esc or a click outside closes it ----------
+  // ---------- header dropdowns (desktop): the button toggles the list; Esc or a click outside closes it ----------
   document.querySelectorAll("header.bar .dd").forEach(function (dd) {
     var b = dd.querySelector(".dd-btn"); if (!b) return;
     function set(open) { dd.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false"); }
@@ -115,6 +117,9 @@ var FAMILY = [
     root.classList.toggle("menu-open", open);
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     btn.querySelector("span").textContent = open ? "Close" : "Menu";
+    /* start the list below the header and launch strip, whatever their height */
+    var bar = document.querySelector("header.bar");
+    if (open && bar) menu.style.paddingTop = Math.ceil(bar.getBoundingClientRect().bottom + 16) + "px";
     if (open) { var a = menu.querySelector("a"); if (a) a.focus(); }
   }
   if (btn && menu) {

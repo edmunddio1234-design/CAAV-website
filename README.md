@@ -1,8 +1,8 @@
 # XR Jags website (formerly the CAAV site) and Immersion in Motion
 
 **XR Jags / Extended Reality Jaguars Research Group** is the Southern University student research group for extended reality.
-On October 21, 2026 Southern University decided to rebrand this site in place (same repo, same URL: caav-website.vercel.app)
-from the CAAV conference site into the XR Jags site. Content comes from the student site, suvrjags.org, and from SU.
+On October 21, 2026 Southern University decided to rebrand this site in place (same repo; now live at suvrjags.org)
+into the XR Jags site. Content comes from the student site, suvrjags.org, and from SU.
 Launch event: Mobile CAVE ribbon cutting at the Leon Waters Museum, Southern University. Date to be announced.
 
 Static site. No build step. Open `index.html` with any web server (for example `python3 -m http.server`).
@@ -14,7 +14,7 @@ primary accent with navy `#00263A` text on it (never white on gold); gold text o
 The full sheet is `/brand` (print it to make the brand PDF).
 
 ## Pages (XR Jags)
-- `/` home, `/about` (5 parts), `/projects`, `/sectors` (+4), `/initiatives`, `/team` (XR Jags Team), `/request-services`, `/book-a-tour`,
+- `/` home, `/cave` (stationary CAVE, XR Development Studio, research, classroom training, demos, simulation development), `/about` (5 parts), `/projects`, `/sectors` (+4), `/initiatives`, `/team` (XR Jags Team), `/request-services`, `/book-a-tour`,
   `/contact`, `/news`, `/cave-list`, `/sponsor-interest`, `/media`, `/brand`, `/dashboard` (staff only, noindex, footer link "Team sign-in")
 - Redirects in `vercel.json` (permanent): `/board` -> `/team`, `/conferences` -> `/initiatives`, `/membership` -> `/about`.
   The old folders hold a fallback refresh page for servers that ignore `vercel.json`.
@@ -49,7 +49,7 @@ block on the home page, where no text sits on it.
 Add `data-date="..."` and `data-target="YYYY-MM-DDTHH:MM:00-06:00"` to the script tag to show the date and a day countdown.
 It is on every public page, not on `/dashboard`.
 
-## Moving suvrjags.org to this site
+## Moving suvrjags.org to this site (done: suvrjags.org is live)
 `vercel.json` already sends the old Wix addresses to the matching new pages (permanent redirects). `/team` and `/contact`
 keep the same address. When SU is ready:
 1. In Vercel, open this project, then Settings, then Domains, and add `www.suvrjags.org` and `suvrjags.org`

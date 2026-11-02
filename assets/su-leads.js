@@ -44,6 +44,12 @@
       });
     });
   }
-  function init() { [].forEach.call(document.querySelectorAll('form[data-su-form]'), bind); }
+  function prefill() {
+    var sel = document.querySelector('form[data-su-form="tour"] select[name="place"]'), want = null;
+    try { want = new URLSearchParams(location.search).get('place'); } catch (e) {}
+    if (!sel || !want) return;
+    [].forEach.call(sel.options, function (o) { if (o.value && o.value === want) sel.value = want; });
+  }
+  function init() { [].forEach.call(document.querySelectorAll('form[data-su-form]'), bind); prefill(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

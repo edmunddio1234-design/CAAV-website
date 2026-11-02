@@ -1,4 +1,4 @@
-/* Family top menu: the same behaviour on all four sites (XR Jags, formerly the CAAV site; Immersion in Motion, AM Lab, Foundations).
+/* Family top menu: the same behaviour on all sites (XR Jags, Immersion in Motion, IMPACT 3D Lab, Foundations).
    - A thin progress line runs along the top of the header; its filled part is the truck blue.
    - The menu titles are the contextual menu: the title for the section on screen (or the page you are on)
      turns bright with a small truck-blue dot; the others stay dim. Same rule as the 21tsi reference.
@@ -12,7 +12,7 @@
   document.documentElement.classList.add("fnav-on");
   if (getComputedStyle(head).position === "static") head.style.position = "relative";
 
-  /* progress line (AM Lab already has one: reuse it) */
+  /* progress line (the IMPACT 3D Lab site already has one: reuse it) */
   var fill = head.querySelector(".prog i");
   if (!fill) {
     var line = document.createElement("div");
@@ -33,7 +33,11 @@
     var h = a.getAttribute("href") || "", id = h.charAt(0) === "#" ? h.slice(1) : null;
     return { a: a, el: id ? document.getElementById(id) : null };
   });
-  function setOn(a) { links.forEach(function (l) { l.classList.toggle("fn-on", l === a); }); }
+  function setOn(a) {
+    /* a page inside a dropdown also lights up the main tab that holds it */
+    var box = a && a.closest ? a.closest(".dd") : null, top = box ? box.querySelector("a") : null;
+    links.forEach(function (l) { l.classList.toggle("fn-on", l === a || l === top); });
+  }
   function pageMatch() {
     var best = null;
     links.forEach(function (a) {

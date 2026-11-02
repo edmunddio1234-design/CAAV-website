@@ -63,6 +63,11 @@
       "permanent": true
     },
     {
+      "source": "/become-a-sponsor",
+      "destination": "/sponsor-interest",
+      "permanent": true
+    },
+    {
       "source": "/projects-home",
       "destination": "/projects",
       "permanent": true

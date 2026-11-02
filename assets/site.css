@@ -172,7 +172,7 @@ footer .small a{color:var(--ink)}
 .sitemap a{color:var(--ink);text-decoration:none;min-height:var(--tap);display:inline-flex;align-items:center}
 .sitemap a:hover{text-decoration:underline}
 
-/* ---------- site family (CAAV, Immersion in Motion, AM Lab). Addresses live in FAMILY in site.js ---------- */
+/* ---------- site family (XR Jags, Immersion in Motion, CAVE, IMPACT 3D Lab). Addresses live in FAMILY in site.js ---------- */
 .family-top{display:flex;justify-content:flex-end;gap:0 20px;max-width:var(--maxw);margin:0 auto;padding:0 max(var(--gutter),env(safe-area-inset-right)) 0 max(var(--gutter),env(safe-area-inset-left));border-bottom:1px solid var(--line)}
 .family-top a,.family a{font:400 .6875rem/1 var(--font-body);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);text-decoration:none;min-height:32px;display:inline-flex;align-items:center;gap:8px}
 .family-top a:hover,.family a:hover{color:var(--ink)}
@@ -892,3 +892,48 @@ section:not(.panel) .tk-quick{background:var(--panel)}
   .pt-dl dd{margin-bottom:8px}
   .pt-step+.pt-step::before{width:18px;margin:0 6px}
 }
+
+/* ---------- Nov 2 2026: four main tabs with dropdowns, grouped footer, two home stats, CAVE page ---------- */
+header.bar .dd-list{max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);overflow:auto}
+header.bar .dd-list .dd-sub a{padding-left:28px;font-size:.875rem;color:var(--ink-2)}
+.fnav-on [data-fnav] .dd-list .dd-sub a{font-size:.875rem}
+/* phone tab bar: longer program names may wrap to two lines */
+@media (max-width:640px){
+  .tabbar a{min-height:60px;padding:4px 2px;text-align:center;line-height:1.12;font-size:.625rem}
+  body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+}
+/* footer */
+.foot-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px var(--col-gap);border-top:1px solid var(--line);padding-top:28px}
+.foot-h{font:400 .75rem/1.42 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin:0 0 10px}
+.foot-list{list-style:none;margin:0;padding:0}
+.foot-list a{display:inline-flex;align-items:center;min-height:var(--tap);color:var(--ink);text-decoration:none;font-size:.9375rem;overflow-wrap:anywhere}
+.foot-list a:hover{text-decoration:underline}
+.foot-addr{color:var(--ink-2);font-size:.9375rem;line-height:1.45;padding:6px 0}
+footer .foot-base{margin:32px 0 8px}
+@media (max-width:900px){.foot-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.foot-cols{grid-template-columns:1fr}}
+/* home: the two stats sit in their own short section under the launch */
+.glance{padding-bottom:0}
+.stats.stats-two{grid-template-columns:repeat(2,1fr);margin-top:0}
+.stats-two span{max-width:46ch}
+@media (max-width:640px){
+  .stats.stats-two{grid-template-columns:1fr}
+  .stats.stats-two div+div{padding-left:0;border-left:0;margin-top:28px}
+}
+/* CAVE page */
+.media.r43{aspect-ratio:4/3}
+.grid.g2 .media{min-width:0}
+section>.wrap>.actions+.media.wide{margin-top:56px}
+.media.pos-top .photo{background-position:center 16%}
+section>.wrap>.lede+.grid,section>.wrap>.lede+.compare,section>.wrap>.lede+form,section>.wrap>.plist+.grid{margin-top:40px}
+section>.wrap>.grid+.actions{margin-top:32px}
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.compare .card h3{margin-bottom:16px}
+.compare dl{margin:0}
+.compare dt{font:400 .75rem/1.42 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin-top:16px}
+.compare dd{margin:4px 0 0;color:var(--ink)}
+@media (max-width:760px){.compare{grid-template-columns:1fr}}
+/* header never runs off the screen on narrow widths */
+@media (max-width:720px){header.bar .hbtn-line{display:none}header.bar .hbtn-gold{margin-left:auto}}
+@media (max-width:470px){header.bar .su-lock{display:none}}
+@media (max-width:350px){.menu-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}header.bar .wrap{gap:12px}}
