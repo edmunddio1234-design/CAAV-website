@@ -937,3 +937,14 @@ section>.wrap>.grid+.actions{margin-top:32px}
 @media (max-width:720px){header.bar .hbtn-line{display:none}header.bar .hbtn-gold{margin-left:auto}}
 @media (max-width:470px){header.bar .su-lock{display:none}}
 @media (max-width:350px){.menu-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}header.bar .wrap{gap:12px}}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Homepage partners: stays still until there are enough names to scroll (site.js adds .is-moving). */
+.partner-rail{overflow:hidden;margin-top:24px}
+.partner-track{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
+.partner-track a{display:inline-flex;align-items:center;min-height:var(--tap);padding:12px 20px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font-weight:500;text-decoration:none}
+.partner-track a:hover,.partner-track a:focus-visible{text-decoration:underline}
+.partner-rail.is-moving .partner-track{flex-wrap:nowrap;width:max-content;animation:partner-scroll 40s linear infinite}
+.partner-rail.is-moving:hover .partner-track,.partner-rail.is-moving:focus-within .partner-track{animation-play-state:paused}
+@keyframes partner-scroll{to{transform:translateX(calc(-50% - 6px))}}
+@media (prefers-reduced-motion:reduce){.partner-rail.is-moving .partner-track{animation:none;flex-wrap:wrap;width:auto}}

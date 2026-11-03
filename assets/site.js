@@ -316,3 +316,16 @@ var FAMILY = [
   });
   mm.add("(prefers-reduced-motion: reduce)", revealAll);
 })();
+
+/* Homepage partners: scroll only once there are at least 4 names. The copy is hidden from screen readers and the keyboard. */
+(function () {
+  var rail = document.querySelector('[data-partner-rail]'); if (!rail) return;
+  var track = rail.querySelector('.partner-track'), items = [].slice.call(track.children);
+  if (items.length < 4 || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  items.forEach(function (li) {
+    var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true');
+    [].forEach.call(c.querySelectorAll('a'), function (a) { a.tabIndex = -1; });
+    track.appendChild(c);
+  });
+  rail.classList.add('is-moving');
+})();
