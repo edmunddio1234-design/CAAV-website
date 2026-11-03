@@ -948,3 +948,5 @@ section>.wrap>.grid+.actions{margin-top:32px}
 .partner-rail.is-moving:hover .partner-track,.partner-rail.is-moving:focus-within .partner-track{animation-play-state:paused}
 @keyframes partner-scroll{to{transform:translateX(calc(-50% - 6px))}}
 @media (prefers-reduced-motion:reduce){.partner-rail.is-moving .partner-track{animation:none;flex-wrap:wrap;width:auto}}
+.hero-launch{margin:0 0 16px;font-weight:600}
+.hero-launch a{display:inline-flex;align-items:center;min-height:var(--tap)}
