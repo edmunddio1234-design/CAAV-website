@@ -1011,3 +1011,18 @@ html.film-page header.bar nav a[aria-current]{text-shadow:none}
 
 /* 2026-11-07: the film is one screen tall even when the top section is longer, and fades into the page below */
 .hero-film{bottom:auto;height:min(100%,100vh);height:min(100%,100svh);-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)}
+
+/* 2026-11-07 (Sonny): partner strip restored from the old XR Jags site - logo tiles that scroll, corner marks, pause on hover */
+.pmq{position:relative;padding:28px 0 32px;margin-top:28px}
+.pmq-c{position:absolute;top:0;width:28px;height:28px;pointer-events:none;border:0 solid rgba(255,255,255,.85)}
+.pmq-c.tl{left:0;border-top-width:2px;border-left-width:2px}
+.pmq-c.tr{right:0;border-top-width:2px;border-right-width:2px}
+.partner-track.partner-track{gap:14px;align-items:center}
+.partner-track .ptile{display:flex;align-items:center;justify-content:center;width:128px;height:88px;padding:12px;border-radius:14px;background:#fff;border:0;box-shadow:0 8px 24px rgba(0,19,31,.35);transition:transform .25s ease}
+.partner-track .ptile:hover,.partner-track a.ptile:focus-visible{transform:translateY(-3px);text-decoration:none}
+.partner-track .ptile img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.partner-rail.is-moving .partner-track{animation-duration:32s}
+@media (max-width:639px){.partner-track .ptile{width:104px;height:72px;padding:10px}}
+/* the partner strip spans the full width of the section, like the reference */
+#partners .pmq{grid-column:1/-1;width:100%;max-width:none;margin-left:0;margin-right:0}
+#partners .wrap>.pmq{justify-self:stretch}

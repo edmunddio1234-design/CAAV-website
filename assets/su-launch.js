@@ -78,10 +78,18 @@
   }
 
   /* ---------- pop-up (unchanged behavior) ---------- */
-  if ([L.tour, L.sponsor, L.media].some(same)) return;
-  var KEY = 'su-launch-seen';
-  try { var t = +localStorage.getItem(KEY); if (t && Date.now() - t < 7 * 864e5) return; } catch (e) {}
-  var css = '.su-l{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(0,20,32,.72)}' +
+  /* 2026-11-07 (Sonny): the pop-up shows once per visit (not hidden for 7 days), and a gold Become a Sponsor
+     button in the corner of every page reopens it at any time. Not on the tour, sponsor or media pages themselves. */
+  var onAction = [L.tour, L.sponsor, L.media].some(same);
+  var KEY = 'su-launch-seen-visit', seen = false;
+  try { seen = !!sessionStorage.getItem(KEY); } catch (e) {}
+  var styled = false;
+  var css = '.su-fab{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:9000;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:12px;background:#FFC72C;color:#00263A;font:600 14px/1 inherit;letter-spacing:.02em;cursor:pointer;box-shadow:0 10px 30px rgba(0,19,31,.45)}' +
+    '.su-fab:hover{background:#FFD45C}.su-fab:focus-visible{outline:3px solid #fff;outline-offset:2px}' +
+    '.su-fab i{width:8px;height:8px;border-radius:50%;background:#00263A}' +
+    '@media (max-width:900px){.su-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}' +
+    '@media print{.su-fab{display:none}}' +
+    '.su-l{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(0,20,32,.72)}' +
     '.su-l__card{position:relative;max-width:520px;width:100%;background:#00263A;color:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:inherit}' +
     '.su-l__band{height:8px;background:linear-gradient(90deg,#FFC72C 0 50%,#69B3E7 50% 100%)}' +
     '.su-l__body{padding:26px 26px 24px;display:grid;gap:14px}' +
@@ -96,7 +104,8 @@
     '.su-l__x:focus-visible,.su-l__btn:focus-visible{outline:3px solid #FFC72C;outline-offset:2px}' +
     '@media (prefers-reduced-motion:no-preference){.su-l__card{animation:suin .35s ease-out}@keyframes suin{from{transform:translateY(16px);opacity:.4}}}';
   function open() {
-    var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    if (!styled) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); styled = true; }
+    if (document.querySelector('.su-l')) return;
     var prev = document.activeElement, back = encodeURIComponent(location.pathname + location.search + location.hash);
     /* add ?from= (way back) only for links on this same site; a link to another site gets nothing, so it never 404s */
     function q(u) { var t; try { t = new URL(u, location.href); } catch (e) { return u; } if (t.origin !== location.origin) return u; return u + (u.indexOf('?') > -1 ? '&' : '?') + 'from=' + back; }
@@ -112,7 +121,7 @@
       (L.media ? '<a class="su-l__btn su-l__btn--blue" href="' + q(L.media) + '">Media and press</a>' : '') +
       '</div></div></div>';
     document.body.appendChild(w);
-    function close() { w.remove(); document.removeEventListener('keydown', key); try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} if (prev && prev.focus) prev.focus(); }
+    function close() { w.remove(); document.removeEventListener('keydown', key); try { sessionStorage.setItem(KEY, '1'); } catch (e) {} if (prev && prev.focus) prev.focus(); }
     function key(e) {
       if (e.key === 'Escape') close();
       if (e.key === 'Tab') { var f = w.querySelectorAll('a,button'), a = f[0], z = f[f.length - 1];
@@ -120,9 +129,15 @@
     }
     w.querySelector('.su-l__x').addEventListener('click', close);
     w.addEventListener('click', function (e) { if (e.target === w) close(); });
-    [].forEach.call(w.querySelectorAll('a'), function (a) { a.addEventListener('click', function () { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} }); });
+    [].forEach.call(w.querySelectorAll('a'), function (a) { a.addEventListener('click', function () { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }); });
     document.addEventListener('keydown', key);
     w.querySelector('.su-l__btn, .su-l__x').focus();
   }
-  if (document.readyState === 'complete') setTimeout(open, 1200); else window.addEventListener('load', function () { setTimeout(open, 1200); });
+  if (onAction) return;
+  function fab() { if (!L.sponsor || document.querySelector('.su-fab')) return;
+    if (!styled) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); styled = true; }
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'su-fab'; b.innerHTML = '<i aria-hidden="true"></i>Become a Sponsor';
+    b.setAttribute('aria-haspopup', 'dialog'); b.addEventListener('click', open); document.body.appendChild(b); }
+  function start() { fab(); if (!seen) setTimeout(open, 1200); }
+  if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
 })();
