@@ -1060,3 +1060,19 @@ html.film-page [data-fnav] a.fn-on,html.film-page [data-fnav] a:hover,html.film-
 /* 2026-11-07: the strip sits inside the top section, right after the buttons, full width */
 .hero #partners.partners-yc{grid-column:1/-1;width:100vw;margin:56px 0 0 calc(50% - 50vw);padding:64px 0 72px!important;text-shadow:none}
 .hero #partners.partners-yc p,.hero #partners.partners-yc h2{text-shadow:none}
+
+/* 2026-11-07: "Our Programs" picture cards on the homepage (stationary CAVE, Mobile CAVE, 3D Printing) */
+.areas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.area-card{display:flex;flex-direction:column;background:rgba(0,10,18,.72);border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;color:#fff!important;text-decoration:none!important;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s}
+.area-card:hover,.area-card:focus-visible{transform:translateY(-4px);border-color:#FFC72C}
+.area-img{display:block;aspect-ratio:16/10;overflow:hidden;background:#000A12}
+.area-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.area-card:hover .area-img img{transform:scale(1.05)}
+.area-body{display:flex;flex-direction:column;gap:10px;padding:24px;flex:1}
+.area-tag{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#FFC72C;font-weight:600}
+.area-body h3{margin:0;font-size:1.375rem;line-height:1.25;color:#fff}
+.area-body p{margin:0;color:rgba(255,255,255,.82);line-height:1.55}
+.area-go{margin-top:auto;padding-top:8px;font-weight:600;color:#FFC72C}
+@media (max-width:900px){.areas-grid{grid-template-columns:1fr;gap:16px}}
+@media (prefers-reduced-motion:reduce){.area-card,.area-img img{transition:none}}
+#areas .areas-grid{grid-column:1/-1}
