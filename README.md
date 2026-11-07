@@ -3,7 +3,7 @@
 **XR Jags / Extended Reality Jaguars Research Group** is the Southern University student research group for extended reality.
 On October 21, 2026 Southern University decided to rebrand this site in place (same repo; now live at suvrjags.org)
 into the XR Jags site. Content comes from the student site, suvrjags.org, and from SU.
-Launch event: Mobile CAVE ribbon cutting at the Leon Waters Museum, Southern University. Date to be announced.
+Launch event: Mobile CAVE ribbon cutting at the Leon R. Tarver II Cultural and Heritage Center, Southern University. Date to be announced.
 
 Static site. No build step. Open `index.html` with any web server (for example `python3 -m http.server`).
 

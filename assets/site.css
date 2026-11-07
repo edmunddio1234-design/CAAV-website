@@ -950,3 +950,64 @@ section>.wrap>.grid+.actions{margin-top:32px}
 @media (prefers-reduced-motion:reduce){.partner-rail.is-moving .partner-track{animation:none;flex-wrap:wrap;width:auto}}
 .hero-launch{margin:0 0 16px;font-weight:600}
 .hero-launch a{display:inline-flex;align-items:center;min-height:var(--tap)}
+
+/* 2026-11-07: Nov 5 meeting - bolder footer headings, social icons, two labelled addresses */
+.soc-ico{width:16px;height:16px;flex:0 0 16px;margin-right:8px;vertical-align:-3px}
+a.soc{display:inline-flex;align-items:center}
+.addr-h{display:block;font-weight:700;margin-top:6px}
+.foot-h{font-weight:700;font-size:.875rem;letter-spacing:.08em}
+
+/* 2026-11-07 (Sonny): no more solid blue tops. A moving film fills every top section, with a light wash so the film shows. */
+.hero-film{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#00131F}
+.hero-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-film:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,19,31,.58) 0%,rgba(0,19,31,.32) 55%,rgba(0,19,31,.12) 100%),linear-gradient(180deg,rgba(0,19,31,0) 55%,rgba(0,19,31,.45) 100%)}
+.has-film{color:#fff}
+.has-film h1,.has-film h1 .on,.has-film .ln .w,.has-film .ln .w.on{color:#fff!important}
+.has-film .kicker,.has-film .lede,.has-film .mono,.has-film p,.has-film .stats span,.has-film .stats b{color:#fff!important;text-shadow:0 1px 12px rgba(0,19,31,.55)}
+.has-film h1{text-shadow:0 2px 24px rgba(0,19,31,.45)}
+.hero.has-film::before{background:none!important}
+.pagehead.still.has-film{background:#00131F}
+.has-film a:not(.btn){color:#fff}
+.has-film .stats div{border-top-color:rgba(255,255,255,.7)!important}.has-film .stats div+div{border-left-color:rgba(255,255,255,.3)!important}
+.has-film .btn.line{border-color:#fff!important;color:#fff!important}.has-film .btn.line:hover{background:#fff!important;color:#00263A!important}
+.has-film .help-q{border-color:#fff!important;color:#fff!important}
+.has-film .orbit circle,.has-film .orbit path{stroke:rgba(255,255,255,.5)!important}
+
+/* 2026-11-07 (Sonny): circles removed on every page */
+.orbit,.orbit-wrap,svg.orbit{display:none!important}
+
+/* 2026-11-07 (Sonny): full-page background film (see autoplay.js). */
+html.film-page{background:#00131F}
+html.film-page body{background:transparent!important}
+.page-film{position:fixed;inset:0;z-index:-2;pointer-events:none;background:#00131F;overflow:hidden}
+.page-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.page-film video.on{opacity:1}
+.page-film:after{content:"";position:absolute;inset:0;background:rgba(0,19,31,.62)}
+@media (prefers-reduced-motion:reduce){.page-film video{transition:none}}
+html.film-page{--bg:rgba(0,19,31,.45);--panel:rgba(0,26,41,.55);--ink:#fff;--ink-2:rgba(255,255,255,.82);--muted:rgba(255,255,255,.66);
+  --line:rgba(255,255,255,.18);--invert:rgba(0,19,31,.72);--navy:#fff;--blue-text:#A9D4F5;--gold-text:#FFC72C}
+html.film-page section.panel,html.film-page section.inv{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+html.film-page .card,html.film-page .benefits li,html.film-page .person,html.film-page .dive,html.film-page .note,html.film-page .up-list li,html.film-page .tbl-wrap,html.film-page .su-form{border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+html.film-page header.bar{background:rgba(0,19,31,.86)!important;box-shadow:0 1px 0 rgba(255,255,255,.1)}
+html.film-page header.bar .hbtn-gold,html.film-page header.bar .dd-cta,html.film-page .btn.gold,html.film-page .btn.solid.gold{color:#00263A!important}
+html.film-page header.bar .hbtn-line:hover{background:#fff;color:#00263A}
+html.film-page header.bar .dd-list{background:#001A29}
+html.film-page header.bar .dd-list a:hover,html.film-page header.bar .dd-list a:focus-visible,html.film-page header.bar .dd-list a[aria-current]{background:rgba(255,199,44,.16);color:#fff}
+html.film-page .launch{background:rgba(0,19,31,.78)}
+html.film-page .person .ph.initials span{background:#00263A}
+html.film-page .btn.solid{background:#FFC72C;color:#00263A;border-color:#FFC72C}
+html.film-page .btn.line:hover{background:#fff;color:#00263A}
+html.film-page .su-form input,html.film-page .su-form select,html.film-page .su-form textarea{background:#fff;color:#00263A}
+html.film-page .su-form label{color:#fff}
+html.film-page footer{background:rgba(0,19,31,.88)}
+html.film-page .tabbar{background:rgba(0,19,31,.92)}
+
+/* 2026-11-07 (Sonny): motion - the top film drifts slowly like a camera move */
+@keyframes filmDrift{0%{transform:scale(1.12) translate3d(-1.5%,-1%,0)}50%{transform:scale(1.18) translate3d(1.5%,1%,0)}100%{transform:scale(1.12) translate3d(-1.5%,-1%,0)}}
+.hero-film video{top:-8%;height:116%;animation:filmDrift 28s ease-in-out infinite;will-change:transform}
+@media (prefers-reduced-motion:reduce){.hero-film video{animation:none;top:0;height:100%}}
+html.film-page header.bar nav a[aria-current],html.film-page header.bar nav a[aria-current="page"],html.film-page header.bar nav a{color:#fff}
+html.film-page header.bar nav a[aria-current]{text-shadow:none}
+
+/* 2026-11-07: the film is one screen tall even when the top section is longer, and fades into the page below */
+.hero-film{bottom:auto;height:min(100%,100vh);height:min(100%,100svh);-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)}

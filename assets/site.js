@@ -6,7 +6,7 @@ var FAMILY = [
   { id: "caav",      name: "XR Jags",             url: "/" },   /* id kept as "caav" so existing markup keeps working */
   { id: "immersion", name: "Immersion in Motion", url: "https://immersion-in-motion.vercel.app/" },
   { id: "cave",      name: "CAVE",                url: "/cave" },
-  { id: "amlab",     name: "IMPACT 3D Lab",       url: "https://am-lab-3d-printing.vercel.app" }
+  { id: "amlab",     name: "3D Printing",       url: "https://am-lab-3d-printing.vercel.app" }
 ];
 
 (function () {

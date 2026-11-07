@@ -105,7 +105,7 @@
       '<div class="su-l__band"></div><button class="su-l__x" type="button" aria-label="Close">&times;</button>' +
       '<div class="su-l__body"><p class="su-l__eye">' + (DATE ? DATE : 'Launch event · Date to be announced') + '</p>' +
       '<h2 class="su-l__h" id="su-l-h">The Southern University Mobile CAVE launches</h2>' +
-      '<p class="su-l__p">Ribbon cutting and live 3D demos at the Leon Waters Museum on the Southern University campus.' + (DATE ? '' : ' Book a tour or sign up as a sponsor now and we will send you the date.') + '</p>' +
+      '<p class="su-l__p">Ribbon cutting and live 3D demos at the Leon R. Tarver II Cultural and Heritage Center on the Southern University campus.' + (DATE ? '' : ' Book a tour or sign up as a sponsor now and we will send you the date.') + '</p>' +
       '<div class="su-l__row">' +
       (L.tour ? '<a class="su-l__btn su-l__btn--gold" href="' + q(L.tour) + '">Book a Tour</a>' : '') +
       (L.sponsor ? '<a class="su-l__btn su-l__btn--blue" href="' + q(L.sponsor) + '">Become a Sponsor</a>' : '') +
