@@ -1026,3 +1026,6 @@ html.film-page header.bar nav a[aria-current]{text-shadow:none}
 /* the partner strip spans the full width of the section, like the reference */
 #partners .pmq{grid-column:1/-1;width:100%;max-width:none;margin-left:0;margin-right:0}
 #partners .wrap>.pmq{justify-self:stretch}
+
+/* 2026-11-07 (Sonny): all "?" help buttons removed */
+.help-q,.help-t{display:none!important}
